@@ -1,0 +1,693 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorAccent2"
+    android:layout_gravity="center_vertical"
+    android:padding="10dp">
+
+
+    <LinearLayout
+        android:id="@+id/verifyMobile"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginRight="10dp"
+            android:orientation="vertical"
+            android:padding="5dp"
+            tools:ignore="UselessParent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:padding="2dp">
+
+                <ImageView
+                    android:id="@+id/logo_image"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:padding="2dp"
+                    android:transitionName="logo_image"
+                    app:srcCompat="@drawable/ic_login_hero"
+                    tools:ignore="VectorDrawableCompat"
+                    android:contentDescription="TODO" />
+
+                <TextView
+                    android:id="@+id/verifyTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/logo_image"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/VerifyTitle"
+                    android:textColor="@color/R"
+                    android:textSize="30sp"
+                    android:transitionName="logo_text"
+                    tools:fontFamily="sans-serif-black" />
+
+                <TextView
+                    android:id="@+id/verifySubTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/verifyTitle"
+                    android:fontFamily="sans-serif-light"
+                    android:paddingTop="5dp"
+                    android:textColor="@color/white"
+                    android:text="@string/VerifysubTitle"
+                    android:textSize="18sp"
+                    android:transitionName="logo_desc" />
+
+
+            </RelativeLayout>
+
+            <com.hbb20.CountryCodePicker
+                android:id="@+id/country_code_picker"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginTop="30dp"
+                android:drawableTint="@color/R"
+                android:padding="7dp"
+                app:ccp_autoDetectCountry="true"
+                app:ccp_showFlag="true"
+                app:ccp_showFullName="true"
+                app:ccp_showNameCode="true" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:id="@+id/phoneNo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayoutStyle">
+
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/verifyNumber"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:drawableStart="@drawable/ic_person"
+                    android:drawablePadding="6dp"
+                    android:hint="Mobile Number"
+                    android:inputType="number"
+                    style="@style/editText_style"/>
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/verifyBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/mybutton"
+                android:fontFamily="@font/mauli"
+                android:text="Next"
+                android:textColor="@color/white">
+
+            </Button>
+
+            <ImageButton
+                android:id="@+id/BackBtn"
+                android:layout_width="50dp"
+                android:layout_height="50dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_margin="20dp"
+                android:background="@drawable/backbtn" />
+
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/otpLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+
+            <ImageView
+                android:id="@+id/verify_password_icon"
+                android:layout_width="80dp"
+                android:layout_height="80dp"
+                android:layout_marginBottom="5dp"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                app:srcCompat="@drawable/verifycode"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true" />
+
+
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="5dp"
+                android:fontFamily="@font/mauli"
+                android:includeFontPadding="false"
+                android:text="otp_verification_text"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/R"
+                android:textSize="24sp" />
+
+
+            <TextView
+                android:id="@+id/otp_description_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="50dp"
+                android:fontFamily="@font/mauli"
+                android:includeFontPadding="false"
+                android:text="Enter Verification Code Sent To Mobile"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp" />
+
+            <com.chaos.view.PinView
+                android:id="@+id/pinView"
+                style="@style/PinWidget.PinView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="30dp"
+                android:cursorVisible="true"
+                android:inputType="number"
+                android:itemBackground="#65EAEAEA"
+                app:cursorColor="@color/black"
+                app:hideLineWhenFilled="true"
+                app:itemCount="6"
+                app:itemHeight="50dp"
+                app:itemRadius="5dp"
+                app:itemWidth="50dp"
+                app:lineColor="@color/R"
+                app:lineWidth="1dp" />
+
+
+            <Button
+                android:id="@+id/verifyotpBtn"
+                android:layout_width="220dp"
+                android:layout_gravity="center_horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="30dp"
+                android:background="@drawable/gnt_rounded_corners_shape"
+                android:text="verify_code"
+                android:fontFamily="@font/mauli"
+                android:textColor="@color/R"
+                android:transitionName="transition_OTP_screen" />
+
+            <TextView
+                android:id="@+id/resendTv"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right"
+                android:text="Resend OTP"
+                android:fontFamily="@font/mauli"
+                android:layout_marginRight="20dp"
+                android:layout_marginTop="10dp"
+                android:textColor="@color/R"
+                android:textStyle="bold"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_gravity="center_vertical">
+
+
+
+                <ImageButton
+                    android:id="@+id/vrfbackBtn"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_gravity="bottom"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="20dp"
+                    android:layout_marginEnd="20dp"
+                    android:layout_marginBottom="20dp"
+                    android:background="@drawable/backbtn" />
+
+
+            </LinearLayout>
+
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical"
+            android:padding="8dp">
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone"
+                style="@style/TextInputLayoutStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/otpET"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_box"
+                    android:drawableStart="@android:drawable/ic_lock_lock"
+                    android:drawablePadding="6dp"
+                    android:drawableTint="#1D82D3"
+                    android:hint="Enter OTP"
+                    android:inputType="number"
+                    android:padding="12dp"
+                    tools:targetApi="m"
+                    android:drawableLeft="@android:drawable/ic_lock_lock" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/resetPaswdlay"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/cnflay1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="70dp"
+            android:layout_marginRight="10dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:padding="5dp"
+            android:paddingLeft="5dp"
+            android:paddingRight="5dp"
+            android:visibility="visible">
+
+            <ImageView
+                android:id="@+id/reset_password_icon"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                app:srcCompat="@drawable/cnfpassword" />
+
+            <TextView
+                android:id="@+id/reset_password_title"
+                android:layout_width="311dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="-5dp"
+                android:gravity="center"
+                android:includeFontPadding="false"
+                android:text="NEW CREDENTIALS"
+                android:textAlignment="center"
+                android:textAllCaps="true"
+                android:textColor="@color/R"
+                android:fontFamily="@font/mauli"
+                android:textSize="30sp"
+                android:textStyle="bold"
+                android:layout_marginLeft="-5dp" />
+
+            <TextView
+                android:id="@+id/reset_password_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginStart="5dp"
+                android:fontFamily="@font/mauli"
+                android:gravity="center"
+                android:text="Insert a New Password"
+                android:textAlignment="center"
+                android:textColor="@color/white"
+                android:textSize="16sp"
+                android:layout_marginLeft="5dp" />
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayoutStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/resetpaswdtxt1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_box"
+                    android:drawableStart="@drawable/pasi"
+                    android:drawablePadding="6dp"
+                    android:hint="Password"
+                    android:inputType="textPassword"
+                    android:padding="12dp"
+                    tools:targetApi="m"
+                    android:drawableLeft="@drawable/pasi" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <com.google.android.material.textfield.TextInputLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/TextInputLayoutStyle">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/resetpaswdtxt2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_box"
+                    android:drawableStart="@drawable/pasi"
+                    android:drawablePadding="6dp"
+                    android:hint="Confirm Password"
+                    android:inputType="textPassword"
+                    android:padding="12dp"
+                    tools:targetApi="m"
+                    android:drawableLeft="@drawable/pasi" />
+
+            </com.google.android.material.textfield.TextInputLayout>
+
+            <Button
+                android:id="@+id/resetpswdBtn"
+                android:layout_width="200dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/gnt_rounded_corners_shape"
+                android:text="SUBMIT"
+                android:textColor="@color/black">
+
+            </Button>
+
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/cnflay2"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <LinearLayout
+
+                android:layout_width="349dp"
+                android:layout_height="449dp"
+                android:layout_alignParentStart="true"
+
+                android:layout_alignParentTop="true"
+                android:layout_alignParentEnd="true"
+                android:layout_marginStart="0dp"
+                android:layout_marginTop="83dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/pasdupdate"
+                android:gravity="center_horizontal"
+                android:orientation="vertical"
+                android:visibility="visible"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="0dp"
+                android:layout_marginRight="16dp"
+                android:layout_alignParentLeft="true">
+
+
+                <TextView
+                    android:layout_width="311dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginStart="-5dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginBottom="10dp"
+                    android:fontFamily="@font/mauli"
+                    android:gravity="center"
+                    android:text="PASSWORD UPDATED"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/black"
+                    android:textSize="25sp"
+                    android:textStyle="bold"
+                    android:layout_marginLeft="-5dp" />
+
+                <TextView
+
+                    android:id="@+id/suv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:fontFamily="@font/mauli"
+                    android:gravity="center"
+                    android:text="your_password_has_been_updated"
+                    android:textAlignment="center"
+                    android:textColor="@color/black"
+                    android:textSize="16sp" />
+
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/resetloginback"
+                android:layout_width="220dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/cnflay2"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:layout_gravity="center"
+                android:layout_marginStart="92dp"
+                android:layout_marginTop="62dp"
+                android:layout_marginEnd="83dp"
+                android:background="@drawable/gnt_rounded_corners_shape"
+                android:gravity="center"
+                android:text="login_now"
+                android:textColor="@color/black"
+                android:transitionName="transition_OTP_screen"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentRight="true"
+                android:layout_marginLeft="92dp"
+                android:layout_marginRight="83dp" />
+
+        </LinearLayout>
+
+
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/registerLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"
+        android:gravity="center_vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <RelativeLayout
+                android:layout_marginTop="10dp"
+                android:padding="2dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center">
+                <ImageView
+                    android:padding="2dp"
+                    android:id="@+id/logo_image1"
+                    android:layout_width="150dp"
+                    android:layout_height="150dp"
+                    android:transitionName="logo_image"
+                    app:srcCompat="@drawable/ic_login_hero"
+                    tools:ignore="VectorDrawableCompat" />
+
+                <TextView
+                    android:layout_below="@+id/logo_image1"
+                    android:id="@+id/verifyTitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dp"
+                    android:text="@string/ReTitle"
+                    android:textColor="@color/R"
+                    android:textSize="25sp"
+                    android:transitionName="logo_text"
+                    tools:fontFamily="sans-serif-black" />
+
+                <TextView
+                    android:layout_below="@id/verifyTitle1"
+                    android:id="@+id/verifySubTitle1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="sans-serif-light"
+                    android:text="@string/ResubTitle"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"
+                    android:paddingTop="5dp"
+                    android:transitionName="logo_desc" />
+
+
+
+            </RelativeLayout>
+
+            <LinearLayout
+                android:id="@+id/re"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:orientation="vertical"
+                android:padding="8dp">
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    style="@style/TextInputLayoutStyle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/nameRegisterET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@drawable/ic_person"
+                        android:drawablePadding="6dp"
+                        android:hint="Name"
+                        android:inputType="textPersonName"
+                        android:padding="12dp"
+                        android:drawableLeft="@drawable/ic_person"
+                        style="@style/editText_style"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    style="@style/TextInputLayoutStyle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/phoneRegisterET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@android:drawable/stat_sys_phone_call"
+                        android:drawablePadding="6dp"
+                        android:drawableTint="#1D82D3"
+                        android:hint="Phone"
+                        android:inputType="number"
+                        android:padding="12dp"
+                        android:drawableLeft="@android:drawable/stat_sys_phone_call"
+                        style="@style/editText_style"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    style="@style/TextInputLayoutStyle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/emailRegisterET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@android:drawable/sym_action_email"
+                        android:drawablePadding="6dp"
+                        android:drawableTint="#1D82D3"
+                        android:hint="Email"
+                        android:inputType="textEmailAddress"
+                        android:padding="12dp"
+                        android:drawableLeft="@android:drawable/sym_action_email"
+                        style="@style/editText_style"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    app:passwordToggleEnabled="true"
+                    style="@style/TextInputLayoutStyle">
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/passwordRegisterET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawableStart="@android:drawable/ic_partial_secure"
+                        android:drawablePadding="6dp"
+                        android:drawableTint="#1D7AC5"
+                        android:hint="Password"
+                        android:inputType="textPassword"
+                        android:padding="12dp"
+                        android:drawableLeft="@android:drawable/ic_partial_secure"
+                        style="@style/editText_style"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="12dp"
+                    style="@style/TextInputLayoutStyle">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/referralRegisterET"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:drawablePadding="6dp"
+                        android:drawableTint="#1D7AC5"
+                        android:hint="Referral Code (Optional)"
+                        android:inputType="text"
+                        android:padding="12dp"
+                        style="@style/editText_style"/>
+
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+
+            <ImageButton
+                android:id="@+id/registerBtn"
+                android:layout_width="58dp"
+                android:layout_height="58dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_margin="10dp"
+                android:background="@drawable/circle_bg"
+                android:backgroundTint="#2196F3"
+                app:srcCompat="@drawable/ic_arrow_forward_black_24dp"
+                android:layout_alignParentRight="true"
+                tools:ignore="VectorDrawableCompat" />
+
+        </LinearLayout>
+    </RelativeLayout>
+
+
+</RelativeLayout>
+
+
+
+
+
+

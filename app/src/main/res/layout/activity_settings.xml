@@ -1,0 +1,444 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <abcdjob.workonline.com.qrcode.helpers.widget.Basestatusbar
+            android:id="@+id/status_bar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/gradient_title_bar_primary_color_and_accent_color"
+            app:layout_constraintVertical_chainStyle="spread_inside" />
+
+
+        <androidx.appcompat.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/toolbar_height"
+            android:layout_below="@id/status_bar"
+            android:background="@drawable/gradient_title_bar_primary_color_and_accent_color"
+            android:theme="@style/ThemeOverlay.MaterialComponents.Dark.ActionBar"
+            app:title="@string/settings" />
+
+        <ScrollView
+            android:id="@+id/sscroll"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="@dimen/_10sdp"
+            android:layout_below="@+id/toolbar">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:background="@color/colorAccent2"
+                android:paddingStart="@dimen/_10sdp"
+                android:layout_marginBottom="@dimen/_4sdp"
+                android:paddingEnd="@dimen/_10sdp">
+
+                <RelativeLayout
+                    android:id="@+id/l1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/_10sdp">
+
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:id="@+id/profileCircleImageView"
+                        android:layout_width="60dp"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="15dp"
+                        android:layout_marginRight="10dp"
+                        android:src="@drawable/user"
+                        app:civ_border_color="@color/imageBorderColor"
+                        app:civ_border_width="2dp" />
+
+                    <TextView
+                        android:id="@+id/usernameTextView"
+                        style="@style/viewParent.headerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:layout_toRightOf="@id/profileCircleImageView"
+                        android:text="Kapil Mohan"
+                        android:textSize="18sp" />
+
+                    <TextView
+                        android:id="@+id/emailidt"
+                        style="@style/viewParent.headerText"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@id/usernameTextView"
+                        android:layout_toRightOf="@id/profileCircleImageView"
+                        android:text=""
+                        android:textColor="@color/contentBodyColor"
+                        android:textSize="16sp" />
+
+                    <ImageView
+                        style="@style/viewParent"
+                        android:layout_alignParentRight="true"
+                        android:layout_centerVertical="true"
+                        android:src="@drawable/ic_more" />
+
+                </RelativeLayout>
+
+                <TextView
+                    style="@style/viewParent.headerText.settingsMiniTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Total Referals" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+
+                    <TextView
+                        android:id="@+id/totalreferals"
+                        style="@style/viewParent.headerText.settingsTextIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_4sdp"
+                        android:layout_marginTop="1dp"
+                        android:clickable="true"
+                        android:contextClickable="true"
+                        android:drawableLeft="@drawable/ic_edit_profile"
+                        android:focusable="true"
+                        android:text="Total Referals"
+                        android:textSize="@dimen/text_body"
+                        android:textStyle="bold" />
+
+
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+                    <TextView
+                        android:id="@+id/referals"
+                        style="@style/viewParent.headerText.settingsTextIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_4sdp"
+                        android:layout_marginTop="1dp"
+                        android:clickable="true"
+                        android:contextClickable="true"
+                        android:drawableLeft="@drawable/ic_baseline_share"
+                        android:focusable="true"
+                        android:text="Refer &amp; Earn"
+
+                        android:textSize="@dimen/text_body"
+                        android:textStyle="bold" />
+
+
+                </RelativeLayout>
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+                    <Switch
+                        android:id="@+id/darkModeSwitch"
+                        style="@style/settingsText"
+                        android:drawableStart="@drawable/ic_dark_mode"
+                        android:text="Dark Mode"
+                        android:visibility="gone" />
+
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+
+
+                <!--  <TextView
+                        style="@style/viewParent.headerText.settingsMiniTitle"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Profile" />-->
+
+                <!--      <TextView
+                        style="@style/viewParent.headerText.settingsTextIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:drawableLeft="@drawable/ic_edit_profile"
+                        android:text="Edit Profile"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />
+-->
+                <!-- <TextView
+                        style="@style/viewParent.headerText.settingsTextIcon"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:drawableLeft="@drawable/ic_edit_password"
+                        android:text="Change Password"
+                        android:textColor="@color/black"
+                        android:textStyle="bold" />-->
+
+
+                <TextView
+                    style="@style/viewParent.headerText.settingsMiniTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:minHeight="@dimen/_30sdp"
+                    android:text="Notifications" />
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+
+                    <Switch
+                        style="@style/settingsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="@dimen/_4sdp"
+                        android:checked="true"
+                        android:drawableLeft="@drawable/ic_notifications"
+                        android:text="Notifications" />
+
+                </RelativeLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+                <TextView
+                    style="@style/viewParent.headerText.settingsMiniTitle"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Regional" />
+                </RelativeLayout>
+
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+                <Switch
+                    android:id="@+id/switch_compat_play_sound"
+                    style="@style/settingsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:checked="true"
+                    android:drawableLeft="@drawable/ic_baseline_music_note"
+                    android:text="Play Sound" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+
+                    <Switch
+                        android:id="@+id/switch_compat_vibrate"
+                        style="@style/settingsText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:checked="true"
+                        android:layout_margin="@dimen/_4sdp"
+                        android:drawableLeft="@drawable/ic_baseline_vibration_24"
+                        android:text="@string/vibrate" />
+
+                </RelativeLayout>
+
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"
+                    android:paddingBottom="2dp">
+                <Switch
+                    android:id="@+id/switch_compat_save_history"
+                    style="@style/settingsText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:drawableLeft="@drawable/ic_notifications"
+                    android:text="@string/save_history"
+                    android:textColor="@color/black"
+                    android:visibility="gone" />
+
+                </RelativeLayout>
+
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingBottom="2dp">
+
+                <TextView
+                    android:id="@+id/text_view_about_us"
+                    style="@style/settingsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_info_244"
+                    android:onClick="startAboutUsActivity"
+                    android:checked="true"
+                    android:text="@string/about_us"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingBottom="2dp">
+                <TextView
+                    android:id="@+id/contact_us"
+                    style="@style/viewParent.headerText.settingsTextIcon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:drawableLeft="@drawable/ic_baseline_info_244"
+                    android:onClick="startcontactUsActivity"
+                    android:text="Contact_us"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingBottom="2dp">
+                <TextView
+                    android:id="@+id/text_view_privacy_policy"
+                    style="@style/settingsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:clickable="true"
+                    android:drawableLeft="@drawable/ic_baseline_policy_24"
+                    android:onClick="startPrivacyPolicyActivity"
+                    android:text="@string/privacy_policy"
+                    android:textSize="@dimen/text_body"
+                    android:textStyle="bold" />
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:paddingTop="2dp"
+                    android:minHeight="@dimen/_30sdp"
+                    android:paddingBottom="2dp">
+                <TextView
+                    android:id="@+id/logoutp"
+                    style="@style/settingsText"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:drawableLeft="@drawable/ic_logout1"
+                    android:text="Logout"
+                    android:layout_margin="@dimen/_4sdp"
+                    android:textSize="16sp"
+                    android:textStyle="bold"
+                    android:layout_marginBottom="@dimen/_10sdp"/>
+                </RelativeLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/colorPrimary" />
+
+            </LinearLayout>
+        </ScrollView>
+
+        <Switch
+            android:id="@+id/switch_compat_copy_to_clipboard"
+            style="@style/settingsText"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:drawableLeft="@drawable/ic_notifications"
+            android:text="@string/copied_to_clipboard"
+            android:textColor="@color/black"
+            android:visibility="gone"
+            tools:layout_editor_absoluteX="10dp"
+            tools:layout_editor_absoluteY="123dp" />
+
+
+    </RelativeLayout>
+
+</layout>

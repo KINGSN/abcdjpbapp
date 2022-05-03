@@ -1,0 +1,234 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:background="@color/colorAccent2"
+    android:layout_height="wrap_content">
+
+    <androidx.cardview.widget.CardView
+        app:cardElevation="5dp"
+        android:id="@+id/cardViewVideoMedia"
+        android:layout_marginLeft="2dp"
+        android:layout_marginRight="2dp"
+        android:layout_marginBottom="2dp"
+        android:layout_marginTop="2dp"
+        android:padding="2dp"
+        android:background="@drawable/gnt_rounded_corners_shape"
+        app:cardCornerRadius="2dp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center">
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal"
+            android:padding="2dp"
+            android:paddingRight="2dp"
+            android:paddingLeft="2dp"
+            android:background="@drawable/gnt_rounded_corners_shape">
+
+
+            <ImageView
+                android:layout_width="86dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:visibility="visible"
+                app:srcCompat="@drawable/paydetails" />
+
+
+            <LinearLayout
+                android:layout_width="307dp"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_weight="1"
+                android:orientation="vertical"
+                android:padding="5dp">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginTop="10sp"
+                    android:layout_marginRight="10sp"
+                    android:layout_marginBottom="5dp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Payment Details..!"
+                    android:textColor="@color/favcolour"
+                    android:textStyle="bold" />
+
+                <LinearLayout
+                    android:layout_width="261dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                    android:id="@+id/payment_method"
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5sp"
+                    android:layout_marginRight="10sp"
+                    android:fontFamily="sans-serif-condensed-medium"
+                    android:text="Payment Mode"
+                    android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/method_type"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginRight="10sp"
+                        android:fontFamily="sans-serif-black"
+                        android:text="PAYTM"
+                        android:textAlignment="center"
+                        android:textColor="#000" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="261dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/redeemnum"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginRight="10sp"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:text="Provided Details"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/redeempaytmno"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginRight="10sp"
+                        android:textSize="13sp"
+                        android:fontFamily="sans-serif-black"
+                        android:text="9876543210"
+                        android:textAlignment="center"
+                        android:textColor="#000" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="258dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/name"
+                        android:layout_width="150dp"
+                        android:layout_height="20dp"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginRight="10sp"
+                        android:fontFamily="sans-serif-condensed-medium"
+                        android:text="Amount added to your wallet"
+                        android:textColor="#000" />
+
+                    <TextView
+                        android:id="@+id/amount"
+                        android:layout_width="wrap_content"
+                        android:layout_height="20dp"
+                        android:layout_gravity="center"
+                        android:layout_marginTop="5sp"
+                        android:fontFamily="sans-serif-black"
+                        android:text="50 coins"
+                        android:textColor="#000" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/redeemstats"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginRight="10sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Payment Status  " />
+
+                    <TextView
+                        android:id="@+id/redeemstatus"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:fontFamily="sans-serif-black"
+                        android:text="Pending"
+                        android:textColor="#000" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dp"
+                    android:layout_weight="1"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/txnt"
+                        android:layout_width="150dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginRight="10sp"
+                        android:fontFamily="sans-serif-medium"
+                        android:text="Transaction Date  " />
+
+                    <TextView
+                        android:id="@+id/wallet_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="5sp"
+                        android:layout_marginRight="10sp"
+                        android:fontFamily="sans-serif-black"
+                        android:text="02:55 am 12/4/2020" />
+
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="2dp"
+                android:layout_marginRight="5dp"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</LinearLayout>

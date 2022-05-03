@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "629761864047",
+    "project_id": "abcdappd",
+    "storage_bucket": "abcdappd.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:629761864047:android:aa0ccdcc2cf3b332cbb89a",
+        "android_client_info": {
+          "package_name": "abcdjob.workonline.com.qrcode"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "629761864047-nt27sbh0c26vjodejqm249t7joo9jjpe.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA3KO5Yxq4yRbKyW54rvEsdVPYX9GfWbGI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "629761864047-nt27sbh0c26vjodejqm249t7joo9jjpe.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#00A5F5</color>
+    <color name="colorPrimaryDark">#00A5F5</color>
+    <color name="colorAccent">#00A5F5</color>
+
+    <color name="colorAccent2">#4d4b76</color>
+    <color name="colorAccent3">#4d4b76</color>
+    <color name="background">#FAFAFA</color>
+    <color name="textViewBackground">#F4F4F4</color>
+    <color name="projectGreen">#00CBC3</color>
+    <color name="bottom_bar_normal">#00B8DB</color>
+    <color name="bottom_bar_selected">#00CBC3</color>
+    <color name="sectionSeparator">#E3E3E3</color>
+
+    <color name="disabled_gradient_start">#7CE1DF</color>
+    <color name="disabled_gradient_end">#7CCFF7</color>
+    <color name="white">#FFFFFF</color>
+
+    <color name="text_subtitle">#8D8D8D</color>
+    <color name="text_regular">#000000</color>
+    <color name="text_hint">#8D8D8D</color>
+
+
+    <color name="white_70_percent">#B2ffffff</color>
+
+    <color name="black_0_percent">#00000000</color>
+    <color name="black_10_percent">#1A000000</color>
+    <color name="black_20_percent">#33000000</color>
+    <color name="black_55_percent">#8D000000</color>
+    <color name="black_60_percent">#8A000000</color>
+    <color name="black_70_percent">#B3000000</color>
+    <color name="black">#000000</color>
+    <color name="favcolour">#031739</color>
+    <color name="BloddColour">#870404</color>
+
+    <color name="shadow">#d0d8dc</color>
+    <color name="transparent">#00000000</color>
+    <color name="contentBodyColor">#FCFCFC</color>
+    <color name="miniTitle">#2A2E43</color>
+    <color name="imageBorderColor">#E01E7A</color>
+    <color name="contentTextColor">#020000</color>
+    <color name="colorWhite">@android:color/white</color>
+    <color name="colorWhiteTransparent">#c8ffffff</color>
+    <color name="darkModeTextColor">#fff</color>
+    <color name="darkTextColor">#020000</color>
+    <color name="gnt_white">#FFFFFF</color>
+    <color name="red">#FF0000</color>
+    <color name="green">#008000</color>
+    <color name="gnt_outline">#E0E0E0</color>
+    <color name="contact_us_line">#a5a5a5</color>
+
+    <color name="textView_contact_us">#636363</color>
+    <color name="contactus_background">#f2f2f2</color>
+
+    <color name="textView_titleContact_us">#6C6C6C</color>
+    <color name="cursor_edittext">#f20056</color>
+    <color name="button_bg">#f20056</color>
+    <color name="maincolour">#19E1DA</color>
+
+    <color name="image_color">#888888</color>
+    <color name="imageView_border_profile">#EAEAEA</color>
+    <color name="line_image_us">#E4B273</color>
+    <color name="about_us_Text">#636363</color>
+    <color name="about_us_SubText">#8b8b8b</color>
+    <color name="selectedColor">#f20056</color>
+    <color name="unselectedColor">#969696</color>
+
+
+
+    <color name="R">#FFA726</color>
+    <color name="Python">#66BB6A</color>
+    <color name="CPP">#EF5350</color>
+    <color name="Java">#29B6F6</color>
+
+    <color name="color_one">#fb7268</color>
+    <color name="color_white">#ededf2</color>
+    <color name="color_two">#E3E0E0</color>
+
+
+</resources>
