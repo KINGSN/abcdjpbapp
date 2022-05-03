@@ -210,7 +210,7 @@
                             android:layout_height="wrap_content"
                             android:paddingLeft="10dp"
                             android:layout_marginBottom="@dimen/_1sdp"
-                            android:text="History Day's : 100"
+                            android:text="History Day's : 100 "
                             android:textColor="@color/white" />
 
                     </LinearLayout>
