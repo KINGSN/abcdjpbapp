@@ -700,6 +700,7 @@ public class GeneratedCodeActivity extends AppCompatActivity implements View.OnC
                 Map<String, String> params = new HashMap<>();
                 params.put("insert_wallet","" );
                 params.put("user_id", method.preferencess.getValue(GlobalVariables.USER_MOBILE));
+                params.put("qrId", GlobalVariables.codeGen.getId());
                 params.put("name", method.userDTO.getName());
                 params.put("email",  method.userDTO.getEmail());
                 params.put("amount", method.preferencess.getValue(GlobalVariables.Txn_amount));

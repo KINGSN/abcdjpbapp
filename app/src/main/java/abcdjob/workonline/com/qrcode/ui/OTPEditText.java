@@ -148,7 +148,7 @@ public class OTPEditText extends androidx.appcompat.widget.AppCompatEditText {
         // Users can then simply tap on that suggestion to paste the text on the edittext.
         // But I don't know of any API that allows handling of those paste actions.
         // Below code will try to tell those keyboards to stop showing those suggestion. 
-        this.setInputType(EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS | EditorInfo.TYPE_CLASS_NUMBER);
+        this.setInputType(EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS | EditorInfo.TYPE_CLASS_TEXT);
     }
 
     private View getNextView() {

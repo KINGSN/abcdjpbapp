@@ -375,7 +375,7 @@
 
                             <androidx.cardview.widget.CardView
                                 android:id="@+id/details3"
-                                android:layout_width="match_parent"
+                                android:layout_width="wrap_content"
                                 android:layout_height="match_parent"
                                 android:layout_below="@+id/cardViewGraph"
                                 android:layout_marginLeft="@dimen/_5sdp"
@@ -384,7 +384,7 @@
                                 android:layout_marginBottom="@dimen/_5sdp"
                                 android:elevation="10dp"
                                 app:cardCornerRadius="2dp"
-                                android:background="@color/favcolour"
+                                android:background="@color/colorAccent2"
                                 tools:ignore="ObsoleteLayoutParam,UnusedAttribute">
 
                              <!--   <EditText
@@ -423,48 +423,49 @@
                                     app:itemHeight="35sp"
                                     app:itemRadius="2dp"
                                     app:itemWidth="30sp"
-                                    android:ems="2"
-                                   android:digits=""
-                                    android:minLines="2"
                                     app:lineColor="@color/favcolour"
-                                    android:visibility="visible"
+                                    android:visibility="gone"
                                     app:lineWidth="1dp" />
 
-                              <!--  <LinearLayout
+                                <LinearLayout
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">
 
-                                    <EditText
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
                                         android:id="@+id/otp1"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
                                         android:layout_weight="1"
                                         android:background="@drawable/text_box"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="number"
+                                        android:focusable="true"
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
                                         android:text=""
                                         android:textColor="@color/black"
-                                        android:imeOptions="actionNext"
-                                        android:maxLength="1"
-                                        android:padding="12dp"
-                                        android:focusable="true"
-                                        app:nextView="@id/otp2"/>
+                                        app:nextView="@id/otp2" />
 
                                     <Space
                                         android:layout_width="@dimen/_1sdp"
                                         android:layout_height="wrap_content" />
 
-                                    <EditText
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
                                         android:id="@+id/otp2"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
                                         android:layout_weight="1"
                                         android:background="@drawable/text_box"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="text"
-                                        android:imeOptions="actionNext"
-                                        android:maxLength="1"
-                                        android:padding="12dp"
                                         android:focusable="true"
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:text=""
+                                        android:textColor="@color/black"
                                         app:prevView="@id/otp1"
                                         app:nextView="@id/otp3" />
 
@@ -472,17 +473,20 @@
                                         android:layout_width="@dimen/_1sdp"
                                         android:layout_height="wrap_content" />
 
-                                    <EditText
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
                                         android:id="@+id/otp3"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
                                         android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="text"
                                         android:background="@drawable/text_box"
-                                        android:imeOptions="actionNext"
-                                        android:maxLength="1"
-                                        android:padding="12dp"
                                         android:focusable="true"
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:text=""
+                                        android:textColor="@color/black"
                                         app:prevView="@id/otp2"
                                         app:nextView="@id/otp4" />
 
@@ -490,19 +494,149 @@
                                         android:layout_width="@dimen/_1sdp"
                                         android:layout_height="wrap_content" />
 
-                                    <EditText
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
                                         android:id="@+id/otp4"
-                                        android:layout_width="wrap_content"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
                                         android:layout_weight="1"
-                                        android:layout_height="wrap_content"
-                                        android:inputType="text"
                                         android:background="@drawable/text_box"
-                                        android:imeOptions="actionDone"
-                                        android:maxLength="1"
-                                        android:padding="12dp"
                                         android:focusable="true"
-                                        app:prevView="@id/otp3" />
-                                </LinearLayout>-->
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        app:prevView="@id/otp3"
+                                        app:nextView="@id/otp5" />
+                                    <Space
+                                        android:layout_width="@dimen/_1sdp"
+                                        android:layout_height="wrap_content" />
+
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
+                                        android:id="@+id/otp5"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/text_box"
+                                        android:focusable="true"
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        app:prevView="@id/otp4"
+                                        app:nextView="@id/otp6" />
+
+                                    <Space
+                                        android:layout_width="@dimen/_1sdp"
+                                        android:layout_height="wrap_content" />
+
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
+                                        android:id="@+id/otp6"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/text_box"
+                                        android:focusable="true"
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        app:prevView="@id/otp5"
+                                        app:nextView="@id/otp7" />
+
+                                    <Space
+                                        android:layout_width="@dimen/_1sdp"
+                                        android:layout_height="wrap_content" />
+
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
+                                        android:id="@+id/otp7"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/text_box"
+                                        android:focusable="true"
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        app:prevView="@id/otp6"
+                                        app:nextView="@id/otp8" />
+                                    <Space
+                                        android:layout_width="@dimen/_1sdp"
+                                        android:layout_height="wrap_content" />
+
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
+                                        android:id="@+id/otp8"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/text_box"
+                                        android:focusable="true"
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        app:prevView="@id/otp7"
+                                        app:nextView="@id/otp9" />
+
+                                    <Space
+                                        android:layout_width="@dimen/_1sdp"
+                                        android:layout_height="wrap_content" />
+
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
+                                        android:id="@+id/otp9"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/text_box"
+                                        android:focusable="true"
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        app:prevView="@id/otp8"
+                                        app:nextView="@id/otp10" />
+
+
+                                    <Space
+                                        android:layout_width="@dimen/_1sdp"
+                                        android:layout_height="wrap_content" />
+
+                                    <abcdjob.workonline.com.qrcode.ui.OTPEditText
+                                        android:id="@+id/otp10"
+                                        android:layout_width="@dimen/_31sdp"
+                                        android:layout_height="@dimen/_35sdp"
+                                        android:layout_weight="1"
+                                        android:background="@drawable/text_box"
+                                        android:focusable="true"
+                                        android:imeOptions="actionNext"
+                                        android:gravity="center"
+                                        android:inputType="text"
+                                        android:maxLength="1"
+                                        android:textSize="@dimen/_20sdp"
+                                        android:text=""
+                                        android:textColor="@color/black"
+                                        app:prevView="@id/otp9"
+                                        app:nextView="@id/citytxt" />
+
+                                </LinearLayout>
 
                             </androidx.cardview.widget.CardView>
                         </LinearLayout>
