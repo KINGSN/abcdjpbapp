@@ -38,6 +38,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import androidx.annotation.Nullable;
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.content.ContextCompat;
@@ -92,6 +93,7 @@ import abcdjob.workonline.com.qrcode.https.HttpsRequest;
 import abcdjob.workonline.com.qrcode.preferences.SharedPrefrence;
 import abcdjob.workonline.com.qrcode.ui.ContactActivity;
 import abcdjob.workonline.com.qrcode.ui.LoginActivity;
+import abcdjob.workonline.com.qrcode.ui.OTPEditText;
 import abcdjob.workonline.com.qrcode.ui.Util.GlobalVariables;
 import abcdjob.workonline.com.qrcode.ui.Util.Method;
 import abcdjob.workonline.com.qrcode.ui.Util.RestAPI;
@@ -140,7 +142,8 @@ public class GenerateFragment extends Fragment {
     private boolean mTimerRunning;
     private static final long START_TIME_IN_MILLIS = 600000;
     private long mTimeLeftInMillis = START_TIME_IN_MILLIS;
-
+    @Nullable
+    private OTPEditText.Listener listener;
     Timer timer;
     TimerTask timerTask;
     Double time = 0.0;
@@ -247,6 +250,8 @@ public class GenerateFragment extends Fragment {
         idtxt. setTextIsSelectable(false);
         citytxt. setTextIsSelectable(false);
         pincodetxt. setTextIsSelectable(false);
+
+
 
 
         nametxt.setCustomSelectionActionModeCallback(new ActionMode.Callback() {
@@ -1632,6 +1637,9 @@ public class GenerateFragment extends Fragment {
             }
 
     }
+
+
+
 
 
 }

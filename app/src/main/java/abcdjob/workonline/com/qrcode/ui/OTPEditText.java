@@ -8,6 +8,7 @@ import android.graphics.Rect;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
@@ -16,6 +17,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
 import abcdjob.workonline.com.qrcode.R;
+import abcdjob.workonline.com.qrcode.ui.Util.Method;
 
 /**
  * This class handles otp input in multiple edittexts.
@@ -34,12 +36,13 @@ public class OTPEditText extends androidx.appcompat.widget.AppCompatEditText {
 
     @Nullable
     private View nextView;
-
+   private Method method;
     @Nullable
     private View previousView;
 
     // Unfortunately getParent returns null inside the constructor. So we need to store the IDs.
     private int nextViewId;
+    private String idnumber;
     private int previousViewId;
 
     @Nullable
@@ -53,6 +56,7 @@ public class OTPEditText extends androidx.appcompat.widget.AppCompatEditText {
 
     public OTPEditText(@NonNull Context context) {
         super(context);
+        method=new Method(context);
     }
 
     public OTPEditText(@NonNull Context context, @Nullable AttributeSet attrs) {
@@ -138,6 +142,11 @@ public class OTPEditText extends androidx.appcompat.widget.AppCompatEditText {
             public void afterTextChanged(Editable s) {
                 if (s.length() == 1 && getNextView() != null) {
                     getNextView().requestFocus();
+                   // method.preferencess.setValue("idNoofpin", String.valueOf(s));
+                    Log.d("KINGSN", "afterTextChanged: "+ String.valueOf(s));
+                    idnumber= ""+String.format(String.valueOf(s));
+
+                    Log.d("KINGSN", "afterTextChanged: "+idnumber);
                 } else if (s.length() == 0 && getPreviousView() != null) {
                     getPreviousView().requestFocus();
                 }
@@ -153,9 +162,11 @@ public class OTPEditText extends androidx.appcompat.widget.AppCompatEditText {
 
     private View getNextView() {
         if (nextView != null) {
+
             return nextView;
         }
         if (nextViewId != NO_ID && getParent() instanceof View) {
+            Log.d("KINGSN", "getNextView: "+nextViewId);
             nextView = ((View) getParent()).findViewById(nextViewId);
             return nextView;
         }

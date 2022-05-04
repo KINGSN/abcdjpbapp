@@ -337,6 +337,7 @@
                                     android:maxLines="1"
                                     android:singleLine="true"
                                     android:padding="@dimen/padding_12"
+                                    android:imeOptions="actionNext"
                                     android:textColor="@color/black"
                                     android:textColorHint="@color/text_hint">
 
@@ -690,6 +691,7 @@
                                     android:gravity="top|start"
                                     android:hint="Enter Above City location"
                                     android:padding="@dimen/padding_12"
+                                    android:imeOptions="actionNext"
                                     android:ellipsize="end"
                                     android:maxLines="1"
                                     android:singleLine="true"
@@ -754,6 +756,7 @@
                                     android:singleLine="true"
                                     android:padding="@dimen/padding_12"
                                     android:textColor="@color/black"
+                                    android:imeOptions="actionNext"
                                     android:textColorHint="@color/text_hint"
                                     android:textSize="@dimen/text_body">
 
