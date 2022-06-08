@@ -67,14 +67,14 @@ public class RefferActivity extends AppCompatActivity {
         adview  = (FrameLayout) findViewById(R.id.adView);
         adView2 = (FrameLayout) findViewById(R.id.adView2);*/
 
-        referwatsbtn=(ImageButton) findViewById(R.id.referwatsbtn);
-        refertgbtn=(ImageButton) findViewById(R.id.refertgbtn);
-        referbtnmore=(ImageButton) findViewById(R.id.referbtnmore);
-        referfbtn=(ImageButton) findViewById(R.id.referfbtn);
-        referybtn=(ImageButton) findViewById(R.id.referybtn);
-        referfbtn2=(ImageButton) findViewById(R.id.referfbtn2);
-        refertgbtn2=(ImageButton) findViewById(R.id.refertgbtn2);
-        refercontent=(TextView)findViewById(R.id.refercontent);
+        referwatsbtn= findViewById(R.id.referwatsbtn);
+        refertgbtn= findViewById(R.id.refertgbtn);
+        referbtnmore= findViewById(R.id.referbtnmore);
+        referfbtn= findViewById(R.id.referfbtn);
+        referybtn= findViewById(R.id.referybtn);
+        referfbtn2= findViewById(R.id.referfbtn2);
+        refertgbtn2= findViewById(R.id.refertgbtn2);
+        refercontent= findViewById(R.id.refercontent);
 
 
         /*Ads ads=new Ads();
@@ -108,10 +108,10 @@ public class RefferActivity extends AppCompatActivity {
                         Color.parseColor("#8446CC"),
                 }, null, Shader.TileMode.CLAMP);
         referTv.getPaint().setShader(textShader);
-        referTv.setText(method.userDTO.getUserReferalCode());
-        referCode=(method.userDTO.getUserReferalCode());
+        referTv.setText(Method.userDTO.getUserReferalCode());
+        referCode=(Method.userDTO.getUserReferalCode());
         refercontent.setText("Invite Someone To The App \n"+"You Will Get ₹ "+
-                GlobalVariables.settings.getPerRefer()+
+                Method.settings.getPerRefer()+
                 "  When Someone Joins using Your Referal Code");
 
 /*
@@ -424,10 +424,11 @@ public class RefferActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String shareBody = "Hey, \nDownload the " +
-                        preferences.getString(GlobalVariables.APP_NAME, "") +
+                        Method.settings.getAppName() +
                         ".The best earning app.\nJoin using my referral code to get bonus\n" +
                         "My referral code is  " +
-                        preferences.getString(GlobalVariables.USER_REFERAL_CODE, "") + "\n" +
+                        Method.userDTO.getUserReferalCode()
+                        + "\n" +
                         "https://play.google.com/store/apps/details?id=" + getPackageName();
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
@@ -448,10 +449,10 @@ public class RefferActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String shareBody = "Hey, \nDownload the " +
-                        preferences.getString(GlobalVariables.APP_NAME, "") +
+                        Method.settings.getAppName() +
                         ".The best earning app.\nJoin using my referral code to get bonus\n" +
                         "My referral code is  " +
-                        preferences.getString(GlobalVariables.USER_REFERAL_CODE, "") + "\n" +
+                        Method.userDTO.getUserReferalCode() + "\n" +
                         "https://play.google.com/store/apps/details?id=" + getPackageName();
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
@@ -474,10 +475,10 @@ public class RefferActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 String shareBody = "Hey, \nDownload the " +
-                        preferences.getString(GlobalVariables.APP_NAME, "") +
+                        Method.settings.getAppName() +
                         ".The best earning app.\nJoin using my referral code to get bonus\n" +
                         "My referral code is  " +
-                        preferences.getString(GlobalVariables.USER_REFERAL_CODE, "") + "\n" +
+                        Method.userDTO.getUserReferalCode() + "\n" +
                         "https://play.google.com/store/apps/details?id=" + getPackageName();
                 Intent sendIntent = new Intent();
                 sendIntent.setAction(Intent.ACTION_SEND);
@@ -503,7 +504,7 @@ public class RefferActivity extends AppCompatActivity {
                 //sendIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 //sendIntent.setType("text/plain");
                 sendIntent.setPackage("org.telegram.messenger");
-                sendIntent.setData(Uri.parse(preferences.getString(GlobalVariables.TELEGRAM_LINK,"")));
+                sendIntent.setData(Uri.parse((Method.settings.getTelegramlink())));
                 if (sendIntent != null) {
                     //startActivity(Intent.createChooser(sendIntent, ""));
                     startActivity(sendIntent);
@@ -522,7 +523,7 @@ public class RefferActivity extends AppCompatActivity {
                 //sendIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 //sendIntent.setType("text/plain");
                 sendIntent.setPackage("com.facebook.katana");
-                sendIntent.setData(Uri.parse(preferences.getString(GlobalVariables.FACEBOOK_PAGE,"")));
+                sendIntent.setData(Uri.parse((Method.settings.getFacebookPage())));
                 if (sendIntent != null) {
                     //startActivity(Intent.createChooser(sendIntent, ""));
                     startActivity(sendIntent);
@@ -541,13 +542,9 @@ public class RefferActivity extends AppCompatActivity {
                 //sendIntent.putExtra(Intent.EXTRA_TEXT, shareBody);
                 //sendIntent.setType("text/plain");
                 sendIntent.setPackage("com.google.android.youtube");
-                sendIntent.setData(Uri.parse(preferences.getString(GlobalVariables.YOUTUBE_LINK,"")));
-                if (sendIntent != null) {
-                    //startActivity(Intent.createChooser(sendIntent, ""));
-                    startActivity(sendIntent);
-                } else {
-                    Toast.makeText(RefferActivity.this, "Youtube App is not installed", Toast.LENGTH_SHORT).show();
-                }
+                sendIntent.setData(Uri.parse((Method.settings.getYoutubeLink())));
+                //startActivity(Intent.createChooser(sendIntent, ""));
+                startActivity(sendIntent);
             }
 
         });

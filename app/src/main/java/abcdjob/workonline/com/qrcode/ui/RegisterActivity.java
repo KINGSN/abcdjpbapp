@@ -86,8 +86,8 @@ public class RegisterActivity extends AppCompatActivity{
     Button verifyotpBtn,verifyButton ;
     ImageButton registerBtn ;
     private LinearLayout verifyMobile;
-    private RelativeLayout otpLayout;
-    private RelativeLayout registerLayout;
+    public RelativeLayout otpLayout;
+    public RelativeLayout registerLayout;
     private com.chaos.view.PinView PinView;
    public String verificationID,oneSignalPlayerId,oneSignalPushToken,referedby,deviceid,name,mobileno,password, email,  phone,Password1,refferedby,firebaseOTP,countryCode;
     String codeBySystem;
@@ -247,6 +247,16 @@ public class RegisterActivity extends AppCompatActivity{
         verifySubTitle.setAnimation(slide_in_left);
 ////////////////////Animation ////////////////////////
 
+        if (getIntent().hasExtra("screentype")) {
+            if(Objects.equals(getIntent().getStringExtra("screenType"), "1")){
+
+                otpLayout.setVisibility(View.VISIBLE);
+                registerLayout.setVisibility(View.GONE);
+                verifyMobile.setVisibility(View.GONE);
+            }
+
+        }
+
     }
 
     private void clickListener(){
@@ -262,7 +272,6 @@ public class RegisterActivity extends AppCompatActivity{
         verifyButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
                 if (Objects.requireNonNull(verifyNumber.getText()).toString().isEmpty()){
                     verifyNumber.setError("Mobile No. can not be Empty");
                     // Toast.makeText(RegisterActivity.this, "Mobile No. can not be Empty", Toast.LENGTH_SHORT).show();
@@ -276,9 +285,27 @@ public class RegisterActivity extends AppCompatActivity{
                 else
                 {
                     String mobileNumber=countryCode+""+verifyNumber.getText().toString();
+                    if(GlobalVariables.settings.getDailytaskCoin().equals("0")){
+                        sendVerificationCodeToUser(mobileNumber);
+                    }else  if(GlobalVariables.settings.getDailytaskCoin().equals("1")){
+                        method.params.put("mobile",verifyNumber.getText().toString());
+                        method.params.put("type","register");
+                        method.params.put("device_id",method.getDeviceId(RegisterActivity.this));
+                        method.preferencess.setValue("otp",method.Otp());
+                        method.params.put("otp",method.preferencess.getValue("otp"));
+                        method.checkUser(RegisterActivity.this);
+                    }else  if(GlobalVariables.settings.getDailytaskCoin().equals("3")){
+                        phoneRegisterEt.setText(verifyNumber.getText());
+                        verifyMobile.setVisibility(View.GONE);
+                        otpLayout.setVisibility(View.GONE);
+                        registerLayout.setVisibility(View.VISIBLE);
+                    }
+
+
                    // Toast.makeText(RegisterActivity.this, ""+mobileNumber, Toast.LENGTH_SHORT).show();
-                    loadingDialog.show();
-                    sendVerificationCodeToUser(mobileNumber);
+                   // loadingDialog.show();
+                   //
+
 
                 }
 
@@ -291,6 +318,7 @@ public class RegisterActivity extends AppCompatActivity{
         verifyotpBtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 String userOtp=PinView.getText().toString();
 
 
@@ -446,8 +474,37 @@ public class RegisterActivity extends AppCompatActivity{
 
 
     private void verifyCode(String code) {
-        PhoneAuthCredential credential = getCredential(codeBySystem, code);
-        signInWithPhoneAuthCredential(credential);
+        switch (GlobalVariables.settings.getDailytaskCoin()) {
+            case "0":
+                PhoneAuthCredential credential = getCredential(codeBySystem, code);
+                signInWithPhoneAuthCredential(credential);
+                break;
+            case "1":
+                if (code.equals(method.preferencess.getValue("otp"))) {
+                    otpLayout.setVisibility(View.GONE);
+                    registerLayout.setVisibility(View.VISIBLE);
+                    verifyMobile.setVisibility(View.GONE);
+                    otpLayout.setVisibility(View.GONE);
+                    phoneRegisterEt.setText(verifyNumber.getText());
+                    phoneRegisterEt.setFocusable(false);
+                    registerLayout.setVisibility(View.VISIBLE);
+
+                    loadingDialog.dismiss();
+                }
+                break;
+            case "3":
+                otpLayout.setVisibility(View.GONE);
+                registerLayout.setVisibility(View.VISIBLE);
+                verifyMobile.setVisibility(View.GONE);
+                otpLayout.setVisibility(View.GONE);
+                phoneRegisterEt.setText(verifyNumber.getText());
+                phoneRegisterEt.setFocusable(false);
+                registerLayout.setVisibility(View.VISIBLE);
+
+                loadingDialog.dismiss();
+                break;
+        }
+
 
         loadingDialog.dismiss();
 
@@ -566,10 +623,10 @@ public class RegisterActivity extends AppCompatActivity{
 
                             } else {
 
-                                Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
+                              /*  Intent intent=new Intent(RegisterActivity.this,LoginActivity.class);
                                 startActivity(intent);
                                 finishAffinity();
-
+*/
 
                                 //progressDialog.dismiss();
                                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RegisterActivity.this);

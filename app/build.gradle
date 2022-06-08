@@ -18,15 +18,17 @@ repositories {
 
 
 android {
+
     signingConfigs {
         key {
-            storeFile file('D:\\ANDROID PROJECTS\\Clients App\\latest Data_device\\Data Device v3.5\\app\\key\\key.jks')
+            storeFile file('D:\\ANDROID PROJECTS\\Clients App\\Ashok Client\\AbcdApp\\AppCode\\AbcdjobApp\\app\\key\\key.jks')
             storePassword '123456'
             keyAlias 'key0'
             keyPassword '123456'
         }
         release {
-            storeFile file('D:\\ANDROID PROJECTS\\Clients App\\latest Data_device\\Data Device v3.5\\app\\key\\key.jks')
+
+            storeFile file('D:\\ANDROID PROJECTS\\Clients App\\Ashok Client\\AbcdApp\\AppCode\\AbcdjobApp\\app\\key\\key.jks')
             storePassword '123456'
             keyAlias 'key0'
             keyPassword '123456'
@@ -35,10 +37,10 @@ android {
     compileSdkVersion 30
     defaultConfig {
         applicationId "abcdjob.workonline.com.qrcode"
-        minSdkVersion 21
+        minSdkVersion 19
         targetSdkVersion 30
-        versionCode 12
-        versionName "3.9"
+        versionCode 4
+        versionName "2.2"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
 
         // Enable MultiDex App; so that there will be no limitation (64k+) in method counting
@@ -48,7 +50,6 @@ android {
                                 onesignal_google_project_number: "REMOTE"]
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-        multiDexEnabled true
         signingConfig signingConfigs.release
         lintOptions {
 
@@ -59,7 +60,7 @@ android {
 
     buildTypes {
         release {
-            minifyEnabled false
+            minifyEnabled true
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
@@ -92,9 +93,9 @@ dependencies {
     implementation 'com.github.bumptech.glide:glide:4.12.0'
 
     // Room
-    implementation "androidx.room:room-runtime:2.4.0-alpha04"
+    implementation "androidx.room:room-runtime:2.5.0-alpha01"
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
-    implementation 'com.google.android.play:core:1.10.1'
+    implementation 'com.google.android.play:core:1.10.3'
     annotationProcessor "androidx.room:room-compiler:2.4.0-alpha04"
     implementation "androidx.room:room-rxjava2:2.4.0-alpha04"
 

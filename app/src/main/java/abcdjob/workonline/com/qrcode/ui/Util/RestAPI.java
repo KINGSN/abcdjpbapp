@@ -9,6 +9,7 @@ public class RestAPI {
     public static final String URL= BASE_URL +"/api_v1/api.php?";
     public static final String PURL=BASE_URL + "/api_v1/api_withdraw_request.php?";
     public static final String API_Registation=URL+ "user_register";
+    public static final String CHECK_USER=URL + "check_user";
     public static final String API_Login=URL + "users_login";
     public static final String SIGNIN_USER =BASE_URL+ "/api_v1/api.php";
     public static final String API_User_basic_details=URL + "user_basic_details&user_id=";

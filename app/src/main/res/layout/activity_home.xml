@@ -2,6 +2,7 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:ads="http://schemas.android.com/apk/res-auto"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:windowSoftInputMode="adjustPan|adjustResize"
     xmlns:tools="http://schemas.android.com/tools">
 
     <androidx.constraintlayout.widget.ConstraintLayout
@@ -14,7 +15,7 @@
             android:id="@+id/adView2"
             android:layout_width="398dp"
             android:layout_height="171dp"
-            android:layout_marginBottom="16dp"
+            android:layout_marginBottom="1dp"
             android:background="@color/transparent"
             android:visibility="gone"
             ads:layout_constraintBottom_toBottomOf="parent"

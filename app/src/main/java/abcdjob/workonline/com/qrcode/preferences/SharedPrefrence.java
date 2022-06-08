@@ -12,6 +12,7 @@ import com.google.gson.reflect.TypeToken;
 
 import java.lang.reflect.Type;
 
+import abcdjob.workonline.com.qrcode.Models.Settings;
 import abcdjob.workonline.com.qrcode.Models.UserDTO;
 import abcdjob.workonline.com.qrcode.ui.Util.GlobalVariables;
 
@@ -95,10 +96,10 @@ public class SharedPrefrence {
         prefsEditor.commit();
     }
 
-    public void setParentUser(UserDTO userDTO, String tag) {
+    public void setSettings(Settings settings, String tag) {
 
         Gson gson = new Gson();
-        String hashMapString = gson.toJson(userDTO);
+        String hashMapString = gson.toJson(settings);
 
         prefsEditor.putString(tag, hashMapString);
         prefsEditor.apply();
@@ -125,16 +126,16 @@ public class SharedPrefrence {
         prefsEditor.apply();
     }
 
-    public UserDTO getParentUser(String tag) {
+    public Settings getSettings(String tag) {
         String obj = myPrefs.getString(tag, "defValue");
         if (obj.equals("defValue")) {
-            return new UserDTO();
+            return new Settings();
         } else {
             Gson gson = new Gson();
             String storedHashMapString = myPrefs.getString(tag, "");
-            Type type = new TypeToken<UserDTO>() {
+            Type type = new TypeToken<Settings>() {
             }.getType();
-            UserDTO testHashMap = gson.fromJson(storedHashMapString, type);
+            Settings testHashMap = gson.fromJson(storedHashMapString, type);
             return testHashMap;
         }
     }
@@ -166,4 +167,6 @@ public class SharedPrefrence {
             return testHashMap;
         }
     }
+
+
 }

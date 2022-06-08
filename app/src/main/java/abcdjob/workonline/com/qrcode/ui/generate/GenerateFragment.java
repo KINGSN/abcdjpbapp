@@ -27,6 +27,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -94,6 +95,7 @@ import abcdjob.workonline.com.qrcode.preferences.SharedPrefrence;
 import abcdjob.workonline.com.qrcode.ui.ContactActivity;
 import abcdjob.workonline.com.qrcode.ui.LoginActivity;
 import abcdjob.workonline.com.qrcode.ui.OTPEditText;
+import abcdjob.workonline.com.qrcode.ui.Util.Constant;
 import abcdjob.workonline.com.qrcode.ui.Util.GlobalVariables;
 import abcdjob.workonline.com.qrcode.ui.Util.Method;
 import abcdjob.workonline.com.qrcode.ui.Util.RestAPI;
@@ -103,8 +105,6 @@ import abcdjob.workonline.com.qrcode.ui.home.HomeActivity;
 import abcdjob.workonline.com.qrcode.ui.splash.SplashActivity;
 import dev.shreyaspatil.MaterialDialog.MaterialDialog;
 import es.dmoral.toasty.Toasty;
-
-import static abcdjob.workonline.com.qrcode.ui.Util.GlobalVariables.settings;
 import static android.app.Activity.RESULT_OK;
 import static android.view.View.NO_ID;
 
@@ -114,6 +114,7 @@ public class GenerateFragment extends Fragment {
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     private FragmentGenerateBinding mBinding;
+    public Settings settings;
     private Context mContext;
     private InterstitialAd mInterstitialAd;
     private List<Student_Data> student_data;
@@ -190,7 +191,8 @@ public class GenerateFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         final  View view = LayoutInflater.from(container.getContext()).inflate(R.layout.fragment_generate, container, false);
         //nextbtn = (Button) view.findViewById(R.id.nextbtn);
-        //std=(TextView) view.findViewById(R.id.gencoder);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_VISIBLE|WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);        //std=(TextView) view.findViewById(R.id.gencoder);
+        mBinding = FragmentGenerateBinding.bind(view);
         method=new Method(requireActivity());
         totalcodes=(TextView) view.findViewById(R.id.totalcodes);
         correctcodes=(TextView) view.findViewById(R.id.correctcodes);
@@ -367,6 +369,9 @@ public class GenerateFragment extends Fragment {
 
     @Override
     public void onClick(View v) {
+        String otpdata = mBinding.otp1.getText().toString() + mBinding.otp2.getText().toString() + mBinding.otp3.getText().toString() + mBinding.otp4.getText().toString() + mBinding.otp5.getText().toString() +
+                mBinding.otp6.getText().toString() + mBinding.otp7.getText().toString() + mBinding.otp8.getText().toString() + mBinding.otp9.getText().toString() + mBinding.otp10.getText().toString();
+        Log.d(TAG, "onClick: generated clicked");
         Log.d(TAG, "onClick: generated clicked");
         editor.apply();
         //Toast.makeText(getActivity(),preferences.getString(GlobalVariables.D1,""), Toast.LENGTH_SHORT).show();
@@ -393,12 +398,16 @@ public class GenerateFragment extends Fragment {
             }
             generate.setClickable(true);
             return;
-        }else if(nametxtEt.getText().toString().equals(GlobalVariables.codeGen.getStudentName())){
+        }/*else if(nametxtEt.getText().toString().equals(GlobalVariables.codeGen.getStudentName())){
             idtxtEt.callOnClick();
             idtxtEt.requestFocus();
 
+        }*/
+        if (!otpdata.equals(GlobalVariables.codeGen.getIdNumber())){
+            mBinding.otp10.setError("Please fill correct id");
+
         }
-        if(idtxtEt.getText().toString().isEmpty()){
+        /*if(idtxtEt.getText().toString().isEmpty()){
             idtxtEt.setError("Fields Cant be Empty");
             idtxtEt.animate();
             idtxtEt.setLineColor(
@@ -411,10 +420,10 @@ public class GenerateFragment extends Fragment {
                 method.callindustrial((FragmentActivity) getContext());}
             generate.setClickable(true);
             return;
-        } if (!idtxtEt.getText().toString().equals(GlobalVariables.codeGen.getIdNumber())){
-           if(idtxtEt.getText().toString().isEmpty()){
-            idtxtEt.setError("Fields Cant be Empty");
-            //Toast.makeText(RegisterActivity.this, "Input valid email", Toast.LENGTH_SHORT).show();
+        }*/ if (!otpdata.equals(GlobalVariables.codeGen.getIdNumber())){
+
+               mBinding.otp10.setError("Please fill correct id");
+          /*  //Toast.makeText(RegisterActivity.this, "Input valid email", Toast.LENGTH_SHORT).show();
             if (GlobalVariables.settings.getCallIndustrialOn().toLowerCase().equals("everytime")
                     ||GlobalVariables.settings.getCallIndustrialOn().toLowerCase().equals("both"))
 
@@ -429,7 +438,7 @@ public class GenerateFragment extends Fragment {
             {
                 method.callindustrial((FragmentActivity) getContext());
             }
-
+*/
             generate.setClickable(true);
             return;
         }
@@ -477,7 +486,9 @@ public class GenerateFragment extends Fragment {
 
 
             StopTapped();
-             qrtext = nametxtEt.getText() + "\n" + idtxtEt.getText() + "\n" + citytxtEt.getText() + "\n" +
+            /* qrtext = nametxtEt.getText() + "\n" + idtxtEt.getText() + "\n" + citytxtEt.getText() + "\n" +
+                    pincodetxtEt.getText();*/
+            qrtext = nametxtEt.getText() + "\n" + otpdata + "\n" + citytxtEt.getText() + "\n" +
                     pincodetxtEt.getText();
           //  String qrtext = preferences.getString(GlobalVariables.D1,"");
 
@@ -559,7 +570,7 @@ public class GenerateFragment extends Fragment {
     }
 
 
-    private void setListeners() {
+  /*  private void setListeners() {
         mBinding.spinnerTypes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -584,7 +595,7 @@ public class GenerateFragment extends Fragment {
     }
 
 
-
+*/
 
     public void generateCode() {
         Intent intent = new Intent(getContext(), GeneratedCodeActivity.class);
@@ -661,7 +672,15 @@ public class GenerateFragment extends Fragment {
                       //  preferences.setParentUser3(userDTO, userDTO);
 
                         GlobalVariables.usermDTO=userDTO;
-                        GlobalVariables.settings= new Gson().fromJson(response.getJSONObject(GlobalVariables.AppSid).getJSONObject("Results").getJSONObject("Settings").toString(), (Type) Settings.class);
+                       // GlobalVariables.settings= new Gson().fromJson(response.getJSONObject(GlobalVariables.AppSid).getJSONObject("Results").getJSONObject("Settings").toString(), (Type) Settings.class);
+
+                       settings= new Gson().fromJson(response.getJSONObject(GlobalVariables.AppSid).getJSONObject("Results").getJSONObject("Settings").toString(), (Type) Settings.class);
+//                editor.apply();
+                        mprefrences.setSettings(settings, GlobalVariables.SettingsDto);
+                       // Log.d(TAG, "backResponse: "+settings.getDailytaskCoin());
+                        GlobalVariables.settings= settings;
+                        editor.apply();
+
 
                         GlobalVariables.codeGen= new Gson().fromJson(response.getJSONObject(GlobalVariables.AppSid).getJSONObject("Results").getJSONObject("codeGen").toString(), (Type) codeGen.class);
 
@@ -709,7 +728,7 @@ public class GenerateFragment extends Fragment {
    {
 
        //HomeActivity.alert(requireActivity());
-       alert(requireActivity());
+       method.alert(requireActivity());
 
        nametxt.setText(GlobalVariables.codeGen.getStudentName());
        idtxt.setText(GlobalVariables.codeGen.getIdNumber());
@@ -733,14 +752,14 @@ public class GenerateFragment extends Fragment {
 
        String innerVal=totalcodes.getText().toString()+"\n" +correctcodes.getText().toString();
        int wrongcodes=((Integer.parseInt(userDTO.getTotalAllQrGeneration())) - ((Integer.parseInt(userDTO.getCorrectQrGeneration()))));
-
+       int historydays=Integer.parseInt(userDTO.getTotalQrGeneration());
        // Set the percentage of language used
 
-        int a=Integer.parseInt(userDTO.getCorrectQrGeneration());
+        int a=Integer.parseInt(userDTO.getTodaysCodes());
         int b=Integer.parseInt(userDTO.getTotalAllQrGeneration());
-       D1 = (int) (((double) a / (double) b) * 100);
+       D1 = (int) (((double) a / (double) b) * 50);
 
-       D2 = (int) (((double) wrongcodes / (double) b) * 100);
+       D2 = (int) (((double) historydays / (double) 30) * 50);
 
    //    Toast.makeText(getContext(),String.valueOf(x), Toast.LENGTH_SHORT).show();
        Log.d(TAG, "setData: "+(Integer.parseInt(userDTO.getCorrectQrGeneration())+Integer.parseInt(userDTO.getTotalAllQrGeneration())));
@@ -762,24 +781,36 @@ public class GenerateFragment extends Fragment {
 
        /* "\n"+"Wallet Balance : "+preferences.getFloat(GlobalVariables.USER_COINS,0)+ " ₹"*/
        // Set the data and color to the pie chart
+
+
+
+       pieChart.addPieSlice(
+               new PieModel(
+                       "D3",
+                       Integer.parseInt(String.valueOf(D2)),
+                       // Integer.parseInt(correctcodes.getText().toString()),
+                       Color.parseColor("#66BB6A")));
+
+       pieChart.addPieSlice(
+               new PieModel(
+                       "D4",
+                       // Integer.parseInt(wrongcodes.getText().toString()),
+                       Integer.parseInt(String.valueOf(30)),
+                       Color.parseColor("#EF5350")));
+
        pieChart.addPieSlice(
                new PieModel(
                        "D1",
 
                        Integer.parseInt(String.valueOf(D1)),
                        Color.parseColor("#FFA726")));
+
        pieChart.addPieSlice(
                new PieModel(
                        "D2",
-                       Integer.parseInt(String.valueOf(D2)),
-                       // Integer.parseInt(correctcodes.getText().toString()),
-                       Color.parseColor("#66BB6A")));
-     /*  pieChart.addPieSlice(
-               new PieModel(
-                       "D3",
-                       // Integer.parseInt(wrongcodes.getText().toString()),
-                       Integer.parseInt(String.valueOf(D3)),
-                       Color.parseColor("#EF5350")));*/
+
+                       Integer.parseInt(String.valueOf(b)),
+                       Color.parseColor("#FFA726")));
 
        // To animate the pie chart
        pieChart.startAnimation();
@@ -806,7 +837,7 @@ public class GenerateFragment extends Fragment {
         super.onResume();
       //  mInterstitialAd.loadAd(new AdRequest.Builder().build());
       //  LoadSettings();
-        getHomeData(requireActivity());
+       // getHomeData(requireActivity());
     }
 
     private void initializeAd() {
@@ -1032,7 +1063,7 @@ public class GenerateFragment extends Fragment {
             TextView text = dialogView.findViewById(R.id.cssub2);
             TextView text2 = dialogView.findViewById(R.id.cssub3);
             text.setText("One Step Away To Your Account");
-            text2.setText("Just Pay The App Joining Fee and \n" +
+            text2.setText(" Buy DataBase To  \n" +
                     " Unlock Your Dashboard");
             ImageView image = dialogView.findViewById(R.id.image);
             image.setImageResource(R.drawable.paym);
@@ -1086,8 +1117,7 @@ public class GenerateFragment extends Fragment {
             TextView text = dialogView.findViewById(R.id.cssub2);
             TextView text2 = dialogView.findViewById(R.id.cssub3);
             text.setText("Verification Pending ");
-            text2.setText("Your Last  App Joining Fee  \n Payment is " +
-                    " Under Verification \n Plese Wait For The Approval !");
+            text2.setText(" Plese Wait For The Approval !");
             ImageView image = dialogView.findViewById(R.id.image);
             image.setImageResource(R.drawable.paym);
             Button appPay = dialogView.findViewById(R.id.paybtn);
@@ -1552,16 +1582,16 @@ public class GenerateFragment extends Fragment {
 
         // check if intent resolves
         if(null != chooser.resolveActivity(requireActivity().getPackageManager())) {
-            requireActivity().startActivityForResult(chooser, UPI_PAYMENT);
+            startActivityForResult(chooser, UPI_PAYMENT);
         } else {
             Toast.makeText(requireActivity(),"No UPI app found, please install one to continue",Toast.LENGTH_SHORT).show();
         }
 
     }
 
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+
+   /* public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
 
         if (requestCode == UPI_PAYMENT) {
             if ((RESULT_OK == resultCode) || (resultCode == 11)) {
@@ -1588,7 +1618,7 @@ public class GenerateFragment extends Fragment {
         // Result Code is -1 send from Payumoney activity
         Log.d("MainActivity", "request code " + requestCode + " resultcode " + resultCode);
 
-    }
+    }*/
 
     private void upiPaymentDataOperation(ArrayList<String> data) {
             String str = data.get(0);

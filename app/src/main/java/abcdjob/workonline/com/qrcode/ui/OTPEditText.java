@@ -122,8 +122,10 @@ public class OTPEditText extends androidx.appcompat.widget.AppCompatEditText {
             }
             //You can identify which key pressed by checking keyCode value with KeyEvent.KEYCODE_
             if(keyCode == KeyEvent.KEYCODE_DEL) {
+                this.setText("");
                 // Back pressed. If we have a previous view. Go to it.
                 if (getPreviousView() != null) {
+                    this.clearComposingText();
                     getPreviousView().requestFocus();
                     return true;
                 }
@@ -157,7 +159,7 @@ public class OTPEditText extends androidx.appcompat.widget.AppCompatEditText {
         // Users can then simply tap on that suggestion to paste the text on the edittext.
         // But I don't know of any API that allows handling of those paste actions.
         // Below code will try to tell those keyboards to stop showing those suggestion. 
-        this.setInputType(EditorInfo.TYPE_TEXT_FLAG_NO_SUGGESTIONS | EditorInfo.TYPE_CLASS_TEXT);
+       // this.setInputType(EditorInfo.TYPE_CLASS_TEXT);
     }
 
     private View getNextView() {

@@ -60,6 +60,7 @@ import abcdjob.workonline.com.qrcode.Interface.Helper;
 import abcdjob.workonline.com.qrcode.Models.AdModelCount;
 import abcdjob.workonline.com.qrcode.Models.Settings;
 import abcdjob.workonline.com.qrcode.Models.UserDTO;
+import abcdjob.workonline.com.qrcode.Models.codeGen;
 import abcdjob.workonline.com.qrcode.R;
 import abcdjob.workonline.com.qrcode.https.HttpsRequest;
 import abcdjob.workonline.com.qrcode.preferences.SharedPrefrence;
@@ -84,7 +85,7 @@ public class SplashActivity extends AppCompatActivity implements OSSubscriptionO
      * Fields
      */
     private ImageView mImageViewLogo,image_view;
-    private SharedPreferences preferences;
+    private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     LottieAnimationView splashlotiee;
     private Method method;
@@ -103,9 +104,10 @@ public class SplashActivity extends AppCompatActivity implements OSSubscriptionO
         method=new Method(SplashActivity.this);
 
         getWindow().setBackgroundDrawable(null);
-        // getAllData(SplashActivity.this);
-
-        goToMainPage();
+         getAllData(SplashActivity.this);
+        sharedPreferences=getSharedPreferences(GlobalVariables.ADMIN_PREF, MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+      //  goToMainPage();
         initializeViews();
         OneSignal.addSubscriptionObserver((OSSubscriptionObserver) SplashActivity.this);
 
@@ -237,204 +239,9 @@ public class SplashActivity extends AppCompatActivity implements OSSubscriptionO
         new Handler().postDelayed(this::animateLogo, 2000);
     }
 
-   /* public void LoadSettings() {
-
-        StringRequest stringRequest = new StringRequest(Request.Method.POST, RestAPI.API_Settings,
-                new Response.Listener<String>() {
-                    @Override
-                    public void onResponse(String response) {
-                        // Toast.makeText(LoginActivity.this, "RESPONSE: " + response, Toast.LENGTH_SHORT).show();
-
-                        try {
-                            JSONObject jsonObject = new JSONObject(response);
-
-                            JSONArray jsonArray = jsonObject.getJSONArray(Constant.AppSid);
-
-                            for (int i = 0; i < jsonArray.length(); i++) {
-
-                                JSONObject object = jsonArray.getJSONObject(i);
-                                String joiningBonus= object.getString("joining_bonus");
-                                String referRate= object.getString("per_refer");
-                                String taskCoin = object.getString("dailytask_coin");
-                                String perQrCoin = object.getString("per_qr_coin");
-                                String redeemMin = object.getString("minimum_widthrawal");
-                                String redeemamount = object.getString("min_redeem_amount");
-                                String app_joining_fee = object.getString("app_joining_fee");
-                                String qr_min_time = object.getString("qr_min_time");
-                                String paytm_merchent_key = object.getString("paytm_merchent_key");
-                               // String paytm_mid = object.getString("paytm_mid");
-                                String add_type = object.getString("adds_type");
-                                String banner_add = object.getString("banner_add");
-                                String industrial_add = object.getString("industrial_add");
-                                String industrial_call_type = object.getString("call_industrial_on");
-                                String reward_add = object.getString("reward_add");
-                                String native_add = object.getString("native_add");
-                                String fb_banner1 = object.getString("fb_banner1");
-                                String fb_indusrial1 = object.getString("fb_industrial1");
-                                String fb_reward1 = object.getString("fb_reward1");
-                                String fb_native = object.getString("fb_native");
-                                String addmobpublisher_id = object.getString("publisher_id");
-                                String addmob_banner1 = object.getString("addmob_banner1");
-                                String addmob_industrial1 = object.getString("addmob_industrial1");
-                                String addmob_rewarded1 = object.getString("addmob_rewarded1");
-                                String addmob_native = object.getString("addmob_native");
-                                String telegram_link = object.getString("telegramlink");
-                                String youtube_link = object.getString("youtube_link");
-                                String facebook_page = object.getString("facebook_page");
-                                String new_version = object.getString("new_version");
-                                String update_link = object.getString("update_link");
-                                String admin_msg = object.getString("admin_msg");
-                                String join_group = object.getString("join_group");
-                                String reward_frequency = object.getString("reward_frequency");
-////f
-
-                                String app_name = object.getString("app_name");
-                                String app_logo = object.getString("app_logo");
-                                String app_version = object.getString("app_version");
-                                String app_author = object.getString("app_author");
-                                String app_contact = object.getString("app_contact");
-                                String app_email = object.getString("app_email");
-                                String app_website = object.getString("app_website");
-                                String app_description = object.getString("app_description");
-                                String app_developed_by = object.getString("app_developed_by");
-                                String redeem_currency = object.getString("redeem_currency");
-                                String payment_method1 = object.getString("payment_method1");
-                                String payment_method2 = object.getString("payment_method2");
-                                String payment_method3 = object.getString("payment_method3");
-                                String payment_method4 = object.getString("payment_method4");
-                                String widthraw_note = object.getString("widthraw_note");
-                                String payment_gateway = object.getString("payment_gateway");
-                                String paytm_mid = object.getString("paytm_mid");
-                                String paytm_key = object.getString("paytm_key");
-                                String razorpay_mid = object.getString("razorpay_mid");
-                                String razorpay_key = object.getString("razorpay_key");
-                                String payumoney_mid = object.getString("payumoney_mid");
-                                String payumoney_key = object.getString("payumoney_key");
-
-                                editor.putString(GlobalVariables.JOINING_BONUS,joiningBonus);
-                                editor.putString(GlobalVariables.REFER_RATE, referRate);
-                                editor.putString(GlobalVariables.QR_COIN, perQrCoin);
-                                editor.putString(GlobalVariables.APP_JOINING_FEE, app_joining_fee);
-                               // editor.putString(GlobalVariables.QR_MIN_TIME, qr_min_time);
-                                editor.putInt(GlobalVariables.QR_MIN_TIME, Integer.parseInt(qr_min_time));
-                                editor.putString(GlobalVariables.TASK_COINS,taskCoin);
-                               // editor.putInt(GlobalVariables.REDEEM_MIN, Integer.parseInt(redeemamount));
-                                editor.putString(GlobalVariables.REDEEM_AMOUNT, redeemamount);
-                                editor.putString(GlobalVariables.ADD_TYPE, add_type);
-                                editor.putString(GlobalVariables.BANNER_ADD, banner_add);
-                                editor.putString(GlobalVariables.INDUSTRIAL_ADD, industrial_add);
-                                editor.putString(GlobalVariables.INDUSTRIAL_CALL_TYPE, industrial_call_type);
-                                editor.putString(GlobalVariables.REWARD_ADD, reward_add);
-                                editor.putString(GlobalVariables.NATIVE_ADD, native_add);
-                                editor.putString(GlobalVariables.FB_BANNER_AD1, fb_banner1);
-                                editor.putString(GlobalVariables.FB_INTERSTITIAL_AD_ID_1, fb_indusrial1);
-                                editor.putString(GlobalVariables.FB_NATIVE, fb_native);
-                                editor.putString(GlobalVariables.FB_REWARD_AD_ID_1, fb_reward1);
-                                editor.putInt(GlobalVariables.TASK_REWARD, Integer.parseInt(taskCoin));
-                                editor.putString(GlobalVariables.ADDMOBPUBLISHER_ID, addmobpublisher_id);
-                                editor.putString(GlobalVariables.ADDMOB_BANER, addmob_banner1);
-                                editor.putString(GlobalVariables.ADDMOB_INDUSTRIAL, addmob_industrial1);
-                                editor.putString(GlobalVariables.ADDMOB_REWARDED, addmob_rewarded1);
-                                editor.putString(GlobalVariables.ADDMOB_NATIVE, addmob_native);
-                                //editor.putString(GlobalVariables.FB_REWARD_COINS, rewardAdCoins);
-                                editor.putString(GlobalVariables.TELEGRAM_LINK, telegram_link);
-                                editor.putString(GlobalVariables.YOUTUBE_LINK, youtube_link);
-                                editor.putString(GlobalVariables.FACEBOOK_PAGE, facebook_page);
-                                editor.putFloat(GlobalVariables.NEW_VERSION, Float.parseFloat(new_version));
-                                editor.putString(GlobalVariables.UPDATE_LINK, update_link);
-                                editor.putString(GlobalVariables.ADMIN_MSG, admin_msg);
-                                editor.putString(GlobalVariables.JOIN_GROUP, join_group);
-                                editor.putString(GlobalVariables.APP_NAME, app_name);
-                                editor.putString(GlobalVariables.APP_LOGO, app_logo);
-                                editor.putString(GlobalVariables.APP_DESCRIPTION, app_description);
-                                editor.putString(GlobalVariables.APP_VERSION, app_version);
-                                editor.putString(GlobalVariables.APP_AUTHOR, app_author);
-                                editor.putString(GlobalVariables.APP_EMAIL, app_email);
-                                editor.putString(GlobalVariables.APP_WEBSITE, app_website);
-                                editor.putString(GlobalVariables.APP_DEVELOPED_BY, app_developed_by);
-                                editor.putString(GlobalVariables.PAYMENT_GATEWAY, payment_gateway);
-                                editor.putString(GlobalVariables.PAYTM_MID, paytm_mid);
-                                editor.putString(GlobalVariables.PAYTM_MERCHENT_KEY, paytm_key);
-                                editor.putString(GlobalVariables.RAZORPAY_MID, razorpay_mid);
-                                editor.putString(GlobalVariables.RAZORPAY_MERCHENT_KEY, razorpay_key);
-                                editor.putString(GlobalVariables.PAYUMONEY_MID, payumoney_mid);
-                                editor.putString(GlobalVariables.PAYUMONEY_MERCHENT_KEY, payumoney_key);
-                                editor.putString(GlobalVariables.WIDTHRAW_NOTE, widthraw_note);
 
 
-                                editor.apply();
-
-
-                                settings = new Settings(joiningBonus,app_joining_fee,referRate,redeemamount,taskCoin,redeemMin,paytm_mid,add_type,banner_add,industrial_add,industrial_call_type,reward_add,native_add,fb_banner1,fb_indusrial1,fb_reward1,fb_native,addmob_banner1,addmob_industrial1,addmob_rewarded1,addmob_native
-                                        ,addmobpublisher_id,telegram_link,youtube_link,facebook_page,new_version,update_link,admin_msg,join_group,app_name, app_logo, app_version, app_author, app_contact, app_email, app_website, app_description, app_developed_by
-                                        ,  redeem_currency, payment_method1, payment_method2,reward_frequency);
-
-                                GlobalVariables.settings=settings;
-                                editor.apply();
-                                GlobalVariables.adModelCount = new AdModelCount("0","0","0","0");
-                                Log.d("Response-ls",payment_method1 );
-                                Log.d("add_type",""+add_type+industrial_add );
-
-                                editor.apply();
-
-                            }
-                            //adsConsent.checkForConsent();
-
-                            goToMainPage();
-                           // callinappupdate();
-                        } catch (JSONException e) {
-                            e.printStackTrace();
-                            // Toast.makeText(SplashActivity.this, "Error: " + e.getMessage(),
-                            //  Toast.LENGTH_SHORT).show();
-                        }
-
-                    }
-
-                }, new Response.ErrorListener() {
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //  Toast.makeText(SplashActivity.this, "RESPONSE: " + error, Toast.LENGTH_SHORT).show();
-                Log.e("KINGSN", "" + error.getMessage());
-                //  Toast.makeText(SplashActivity.this, "ErrorV: " + error.getMessage(),
-                // Toast.LENGTH_SHORT).show();
-
-                android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(SplashActivity.this);
-                alertDialogBuilder.setTitle("Something Went Wrong");
-                alertDialogBuilder.setMessage("Please Try With Active Internet ");
-                alertDialogBuilder.setIcon(R.mipmap.ic_launcher);
-                alertDialogBuilder.setPositiveButton(SplashActivity.this.getResources().getString(R.string.ok_message),
-                        new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface arg0, int arg1) {
-                                finish();
-
-                                finishAffinity();
-                            }
-                        });
-
-                android.app.AlertDialog alertDialog = alertDialogBuilder.create();
-                alertDialog.show();
-
-            }
-        }) { @Override
-        protected Map<String, String> getParams() {
-
-            Map<String, String> params = new HashMap<>();
-            params.put("settings","");
-
-
-            return params;
-        }
-        };
-
-        RequestQueue requestQueue = Volley.newRequestQueue(SplashActivity.this);
-        requestQueue.add(stringRequest);
-
-
-
-    }*/
-
- /*   public void getAllData(Activity activity) {
+    public void getAllData(Activity activity) {
         method.params.clear();
         method.params.put("device_id",method.getDeviceId(getApplicationContext()));
         Log.d(GlobalVariables.TAG, "getHomeData2: called"+activity.toString());
@@ -446,13 +253,11 @@ public class SplashActivity extends AppCompatActivity implements OSSubscriptionO
             // binding.tvNo.setVisibility(View.GONE);
             try {
                 Log.d(GlobalVariables.TAG, "hKINGSN123:" + response.getJSONObject(GlobalVariables.AppSid).getJSONObject("Results").toString());
-                settings = new Gson().fromJson(response.getJSONObject(GlobalVariables.AppSid).getJSONObject("Results").toString(), (Type) Settings.class);
-                //globalState.setHomeData(homeDataDTO);
-                //  MainActivity.setData2(adminDTO,activity);
-             //   Log.d(GlobalVariables.TAG, "hKINGSN123:" + settings.getCountry() + settings.getSponsorby());
-                GlobalVariables.settings = settings;
-                // Toast.makeText(getContext(), "You Selected Your Slot"+homeDataDTO , Toast.LENGTH_SHORT).show();
-                // setData();
+                settings= new Gson().fromJson(response.getJSONObject(GlobalVariables.AppSid).getJSONObject("Results").getJSONObject("Settings").toString(), (Type) Settings.class);
+//                editor.apply();
+
+                GlobalVariables.settings=settings;
+                editor.apply();
 
                 goToMainPage();
 
@@ -487,7 +292,9 @@ public class SplashActivity extends AppCompatActivity implements OSSubscriptionO
                 }
             }
         });
-    }*/
+    }
+
+
 
     @Override
     public void onOSSubscriptionChanged(OSSubscriptionStateChanges stateChanges) {

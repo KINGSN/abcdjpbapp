@@ -37,6 +37,7 @@ import org.json.JSONObject;
 
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import abcdjob.workonline.com.qrcode.ui.ReferActivity;
 import abcdjob.workonline.com.qrcode.ui.Util.GlobalVariables;
@@ -76,8 +77,10 @@ public class profileFragment extends Fragment {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
 
-            test = preferences.getString(GlobalVariables.USER_MOBILE, "");
 
+              method=new Method(requireActivity());
+            //test = preferences.getString(GlobalVariables.USER_MOBILE, "");
+            test = Method.userDTO.getMobile();
         }
     }
 
@@ -93,24 +96,24 @@ public class profileFragment extends Fragment {
        // mBinding = DataBindingUtil.setContentView(this, R.layout.fragment_profile);
         method=new Method(requireActivity());
         super.onCreate(savedInstanceState);
-        nameEt = (EditText) view.findViewById(R.id.nameET);
-        phoneEt = (EditText) view.findViewById(R.id.phoneET);
-        passwordEt = (EditText) view.findViewById(R.id.passwordET);
-        cnfpassEt = (EditText) view.findViewById(R.id.confirm_pass);
-        emailEt = (EditText) view.findViewById(R.id.emailET);
-        cityEt = (EditText) view.findViewById(R.id.cityET);
-        totalEarned = (TextView) view.findViewById(R.id.total_earn);
-        editBtn = (Button) view.findViewById(R.id.editBtn);
-        usermailT = (TextView) view.findViewById(R.id.Usermail);
-        usernamet = (TextView) view.findViewById(R.id.username);
-        mobilet = (TextView) view.findViewById(R.id.MOBILE);
-        total_refered = (TextView) view.findViewById(R.id.total_refered);
-        total_earn = (TextView) view.findViewById(R.id.total_earn);
-        idT = (TextView) view.findViewById(R.id.rank);
-        LinearLayout adContainer = (LinearLayout) view.findViewById(R.id.adlayout2);
-        phome=(ImageView)view.findViewById(R.id.phome);
-        pwallet=(ImageView)view.findViewById(R.id.pwallet);
-        preferals=(ImageView)view.findViewById(R.id.preferals);
+        nameEt = view.findViewById(R.id.nameET);
+        phoneEt = view.findViewById(R.id.phoneET);
+        passwordEt = view.findViewById(R.id.passwordET);
+        cnfpassEt = view.findViewById(R.id.confirm_pass);
+        emailEt = view.findViewById(R.id.emailET);
+        cityEt = view.findViewById(R.id.cityET);
+        totalEarned = view.findViewById(R.id.total_earn);
+        editBtn = view.findViewById(R.id.editBtn);
+        usermailT = view.findViewById(R.id.Usermail);
+        usernamet = view.findViewById(R.id.username);
+        mobilet = view.findViewById(R.id.MOBILE);
+        total_refered = view.findViewById(R.id.total_refered);
+        total_earn = view.findViewById(R.id.total_earn);
+        idT = view.findViewById(R.id.rank);
+        LinearLayout adContainer = view.findViewById(R.id.adlayout2);
+        phome= view.findViewById(R.id.phome);
+        pwallet= view.findViewById(R.id.pwallet);
+        preferals= view.findViewById(R.id.preferals);
 
         dialog = new Dialog(getContext());
         dialog.setContentView(R.layout.dialog_loading);
@@ -148,18 +151,18 @@ public class profileFragment extends Fragment {
         }
 
 
-        usermailT.setText(method.userDTO.getEmail());
-        totalEarned.setText(method.userDTO.getTotalPaid()+" ₹");
-        idT.setText(method.userDTO.getUserReferalCode());
-        nameEt.setText(method.userDTO.getName());
-        emailEt.setText(method.userDTO.getEmail());
-        phoneEt.setText(method.userDTO.getMobile());
-        passwordEt.setText(method.userDTO.getPassword());
-        cnfpassEt.setText(method.userDTO.getPassword());
-        cityEt.setText(method.userDTO.getCity());
-        mobilet.setText(method.userDTO.getMobile());
-        usernamet.setText(method.userDTO.getName());
-        total_refered.setText(method.userDTO.getTotalReferals());
+        usermailT.setText(Method.userDTO.getEmail());
+        totalEarned.setText(Method.userDTO.getTotalPaid()+" ₹");
+        idT.setText(Method.userDTO.getUserReferalCode());
+        nameEt.setText(Method.userDTO.getName());
+        emailEt.setText(Method.userDTO.getEmail());
+        phoneEt.setText(Method.userDTO.getMobile());
+        passwordEt.setText(Method.userDTO.getPassword());
+        cnfpassEt.setText(Method.userDTO.getPassword());
+        cityEt.setText(Method.userDTO.getCity());
+        mobilet.setText(Method.userDTO.getMobile());
+        usernamet.setText(Method.userDTO.getName());
+        total_refered.setText(Method.userDTO.getTotalReferals());
 
 
         auth = FirebaseAuth.getInstance();
@@ -250,7 +253,7 @@ public class profileFragment extends Fragment {
     private void uploadData() {
 
 
-        final EditText nameEt = (EditText) getView().findViewById(R.id.nameET);
+        final EditText nameEt = requireView().findViewById(R.id.nameET);
         String name = nameEt.getText().toString();
       //  Toast.makeText(requireActivity(), "" + name, Toast.LENGTH_LONG).show();
         final String email = emailEt.getText().toString();
@@ -304,12 +307,12 @@ public class profileFragment extends Fragment {
 
                 Map<String, String> params = new HashMap<>();
                 params.put("users_profile_update","" );
-                params.put("user_id", preferences.getString(GlobalVariables.USER_MOBILE, ""));
+                params.put("user_id", abcdjob.workonline.com.qrcode.ui.Util.Method.userDTO.getMobile());
                 params.put("name", name);
                 params.put("email", email);
                 params.put("password", password);
                 params.put("city", city);
-
+                Log.d(GlobalVariables.TAG, "uploadData: "+params);
                 return params;
             }
         };

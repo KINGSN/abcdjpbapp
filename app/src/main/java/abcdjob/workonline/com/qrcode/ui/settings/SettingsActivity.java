@@ -1,5 +1,6 @@
 package abcdjob.workonline.com.qrcode.ui.settings;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -43,6 +44,7 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
     private TextView username, logoutp, emailidt, totalreferals, referals;
     public  Method method;
 
+    @SuppressLint("CommitPrefEdits")
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,12 +63,13 @@ public class SettingsActivity extends AppCompatActivity implements CompoundButto
 
         Method ads=new Method(SettingsActivity.this);
 
-        if (GlobalVariables.settings.getCallIndustrialOn().toLowerCase().equals("everytime")
+
+       /* if (GlobalVariables.settings.getCallIndustrialOn().toLowerCase().equals("everytime")
                 ||GlobalVariables.settings.getCallIndustrialOn().toLowerCase().equals("both"))
         {
             ads.callindustrial( SettingsActivity.this);
             // ads.callindustrial(HomeActivity.this);
-        }
+        }*/
         initializeToolbar();
         loadSettings();
         Checkout.preload(getApplicationContext());

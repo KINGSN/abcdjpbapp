@@ -60,6 +60,7 @@ import java.util.concurrent.TimeUnit;
 import abcdjob.workonline.com.qrcode.R;
 import abcdjob.workonline.com.qrcode.ui.Util.Constant;
 import abcdjob.workonline.com.qrcode.ui.Util.GlobalVariables;
+import abcdjob.workonline.com.qrcode.ui.Util.Method;
 import abcdjob.workonline.com.qrcode.ui.Util.RestAPI;
 
 import static com.google.firebase.auth.PhoneAuthProvider.*;
@@ -88,6 +89,7 @@ public class ForgotActivity extends AppCompatActivity {
     int count = 60, RC_SIGN_IN = 1;
     private SharedPreferences preferences;
     Dialog dialog;
+    private Method method;
     public String deviceid;
     com.chaos.view.PinView pinFromUser;
     CountryCodePicker country_code_picker;
@@ -112,6 +114,7 @@ public class ForgotActivity extends AppCompatActivity {
         mAuth=FirebaseAuth.getInstance();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_forgot);
+        method=new Method(ForgotActivity.this);
         init();
         clickListener();
     }
@@ -176,6 +179,15 @@ public class ForgotActivity extends AppCompatActivity {
         auth = FirebaseAuth.getInstance();
         mAuth=FirebaseAuth.getInstance();
 
+        if (getIntent().hasExtra("screentype")) {
+            if(Objects.equals(getIntent().getStringExtra("screenType"), "2")){
+
+                forgotLayout.setVisibility(View.GONE);
+                otpLayout.setVisibility(View.VISIBLE);
+            }
+
+        }
+
     }
 
 
@@ -227,8 +239,21 @@ public class ForgotActivity extends AppCompatActivity {
                 else
                 {
                     String mobileNumber=countryCode+""+numForgotEt.getText().toString();
-                    loadingDialog.show();
-                    sendVerificationCodeToUser(mobileNumber);
+                    if(GlobalVariables.settings.getDailytaskCoin().equals("0")){
+                        loadingDialog.show();
+                        sendVerificationCodeToUser(mobileNumber);
+                    }else  if(GlobalVariables.settings.getDailytaskCoin().equals("1")){
+                        method.params.put("mobile",numForgotEt.getText().toString());
+                        method.params.put("type","forgot_pass");
+                        method.params.put("device_id",method.getDeviceId(ForgotActivity.this));
+                        method.preferencess.setValue("otp",method.Otp());
+                        method.params.put("otp",method.preferencess.getValue("otp"));
+                        method.checkUser(ForgotActivity.this);
+                    }else  if(GlobalVariables.settings.getDailytaskCoin().equals("3")){
+                        loadingDialog.show();
+                        sendVerificationCodeToUser(mobileNumber);
+                    }
+
 
 
                 }
@@ -431,14 +456,42 @@ public class ForgotActivity extends AppCompatActivity {
 
             };
 
-    private void verifyCode(String code) {
+    /*private void verifyCode(String code) {
         PhoneAuthCredential credential = getCredential(codeBySystem, code);
         signInWithPhoneAuthCredential(credential);
 
         loadingDialog.dismiss();
 
 
+    }*/
+
+    private void verifyCode(String code) {
+        PhoneAuthCredential credential = getCredential(codeBySystem, code);
+        switch (GlobalVariables.settings.getDailytaskCoin()) {
+            case "0":
+
+                signInWithPhoneAuthCredential(credential);
+                break;
+            case "1":
+                if (code.equals(method.preferencess.getValue("otp"))) {
+                    forgotLayout.setVisibility(View.GONE);
+                    otpLayout.setVisibility(View.GONE);
+                    resetPaswdlay.setVisibility(View.VISIBLE);
+                    loadingDialog.dismiss();
+
+                }
+                break;
+            case "3":
+                signInWithPhoneAuthCredential(credential);
+                break;
+        }
+
+
+        loadingDialog.dismiss();
+
+
     }
+
 
     private void signInWithPhoneAuthCredential(PhoneAuthCredential credential) {
 

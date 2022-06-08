@@ -62,6 +62,7 @@ import abcdjob.workonline.com.qrcode.ui.adapter.Redeem_Data;
 import abcdjob.workonline.com.qrcode.ui.adapter.WalletAdapter;
 import abcdjob.workonline.com.qrcode.ui.adapter.Wallet_Data;
 import abcdjob.workonline.com.qrcode.ui.home.HomeActivity;
+import abcdjob.workonline.com.qrcode.ui.privacy_policy.PrivayPolicyActivity;
 import es.dmoral.toasty.Toasty;
 
 import static android.R.layout.simple_spinner_dropdown_item;
@@ -116,46 +117,46 @@ public class WalletFragment extends Fragment {
         loadingDialog.setCancelable(false);
         loadingDialog.getWindow().setBackgroundDrawableResource(
                 R.color.transparent);
-        availbaln=(LinearLayout) view.findViewById(R.id.availbaln);
-        linev=(View) view.findViewById(R.id.linev);
+        availbaln= view.findViewById(R.id.availbaln);
+        linev= view.findViewById(R.id.linev);
         availbaln.getWidth();
         linev.setMinimumWidth(availbaln.getWidth());
         //String  test=GlobalVariables.USER_MOBILE;
        // Toast.makeText(requireActivity(),"No Widthrawals Yet"+test,Toast.LENGTH_SHORT).show();
 
-        Log.d(GlobalVariables.TAG, "onCreateView: "+method.userDTO.getWallet());
+        Log.d(GlobalVariables.TAG, "onCreateView: "+ Method.userDTO.getWallet());
 
-        recyclerView = (RecyclerView)view. findViewById(R.id.wallet_adapter);
-        wallet_total=(TextView) view.findViewById(R.id.wallet_total);
-        bonus_total=(TextView) view.findViewById(R.id.bonus_total);
-        maxredm=(TextView) view.findViewById(R.id.maxredm);
-        widthraw_note=(TextView) view.findViewById(R.id.widthraw_note);
+        recyclerView = view. findViewById(R.id.wallet_adapter);
+        wallet_total= view.findViewById(R.id.wallet_total);
+        bonus_total= view.findViewById(R.id.bonus_total);
+        maxredm= view.findViewById(R.id.maxredm);
+        widthraw_note= view.findViewById(R.id.widthraw_note);
         // preferences = getSharedPreferences(GlobalVariables.ADMIN_PREF, MODE_PRIVATE);
-        tab1=(LinearLayout)view.findViewById(R.id.tab1);
-        tab2=(LinearLayout)view. findViewById(R.id.tab2);
-        tab3=(LinearLayout)view.findViewById(R.id.tab3);
-        withdwawalTab=(LinearLayout)view.findViewById(R.id.withdrawlTab);
-        redeemTab=(LinearLayout)view.findViewById(R.id.redeemTab);
-        transactionTab=(LinearLayout)view.findViewById(R.id.transctionTab);
-        payTmMobile=(TextInputEditText)view.findViewById(R.id.phoneET);
-        banknameEt=(TextInputEditText)view.findViewById(R.id.banknameET);
-        bankifscEt=(TextInputEditText)view.findViewById(R.id.bankifscET);
-        bankaccountEt=(TextInputEditText)view.findViewById(R.id.bankaccountET);
-        banknameETl=(TextInputLayout)view.findViewById(R.id.banknameETl);
-        bankifscETl=(TextInputLayout)view.findViewById(R.id.bankifscETl);
-        bankaccountETl=(TextInputLayout)view.findViewById(R.id.bankaccountETl);
+        tab1= view.findViewById(R.id.tab1);
+        tab2= view. findViewById(R.id.tab2);
+        tab3= view.findViewById(R.id.tab3);
+        withdwawalTab= view.findViewById(R.id.withdrawlTab);
+        redeemTab= view.findViewById(R.id.redeemTab);
+        transactionTab= view.findViewById(R.id.transctionTab);
+        payTmMobile= view.findViewById(R.id.phoneET);
+        banknameEt= view.findViewById(R.id.banknameET);
+        bankifscEt= view.findViewById(R.id.bankifscET);
+        bankaccountEt= view.findViewById(R.id.bankaccountET);
+        banknameETl= view.findViewById(R.id.banknameETl);
+        bankifscETl= view.findViewById(R.id.bankifscETl);
+        bankaccountETl= view.findViewById(R.id.bankaccountETl);
 
        /* payTmMobile=(EditText)view.findViewById(R.id.phoneET);*/
-        withdrawalAmount=(TextInputEditText)view.findViewById(R.id.amountET);
-        tabtt1=(TextView) view.findViewById(R.id.tabtt1);
-        tabtt2=(TextView) view.findViewById(R.id.tabtt2);
-        tabtt3=(TextView) view.findViewById(R.id.tabtt3);
+        withdrawalAmount= view.findViewById(R.id.amountET);
+        tabtt1= view.findViewById(R.id.tabtt1);
+        tabtt2= view.findViewById(R.id.tabtt2);
+        tabtt3= view.findViewById(R.id.tabtt3);
 
         recyclerView1=view.findViewById(R.id.wallet_redeem);
-        withdrawalBtn=(Button)view.findViewById(R.id.withdrawBtn);
-        progressBar=(ProgressBar)view.findViewById(R.id.progressBar1);
+        withdrawalBtn= view.findViewById(R.id.withdrawBtn);
+        progressBar= view.findViewById(R.id.progressBar1);
 
-        spinner_widthrawal = (Spinner) view.findViewById(R.id.spinner_widthrawal);
+        spinner_widthrawal = view.findViewById(R.id.spinner_widthrawal);
         final ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(),
                 R.array.widthrawals_array, simple_spinner_item);
 // Specify the layout to use when the list of choices appears
@@ -199,8 +200,8 @@ public class WalletFragment extends Fragment {
 
 
         /////////setting text from server////
-        wallet_total.setText(""+ method.userDTO.getWallet()+ " ₹");
-        bonus_total.setText(""+ method.userDTO.getBonusBalance()+ " ₹");
+        wallet_total.setText(""+ Method.userDTO.getWallet()+ " ₹");
+        bonus_total.setText(""+ Method.userDTO.getBonusBalance()+ " ₹");
         maxredm.setText("Minimum Redeem = "+GlobalVariables.settings.getMinRedeemAmount());
         widthraw_note.setText(GlobalVariables.settings.getWidthrawNote());
 
@@ -213,8 +214,8 @@ public class WalletFragment extends Fragment {
                 tabtt2.setTextColor((getResources().getColor(R.color.BloddColour)));
                 tabtt1.setTextColor((getResources().getColor(R.color.gnt_white)));
                 tabtt3.setTextColor((getResources().getColor(R.color.gnt_white)));
-                withdrawalAmount.setText(""+ method.userDTO.getWallet());
-                withdrawalAmount.setEnabled(false);
+                withdrawalAmount.setText(""+ Method.userDTO.getWallet());
+             //   withdrawalAmount.setEnabled(false);
               /* Ads Ads = new Ads();
                 if (GlobalVariables.adClickModel.getInterstitial().equals("0"))
                 {
@@ -268,7 +269,7 @@ public class WalletFragment extends Fragment {
 
 
                 JsonArrayRequest jsonArrayRequest1 = new JsonArrayRequest(
-                        Request.Method.GET,RestAPI.API_withdrawal_History+method.userDTO.getMobile(),null,
+                        Request.Method.GET,RestAPI.API_withdrawal_History+ Method.userDTO.getMobile(),null,
                         new Response.Listener<JSONArray>() {
                             @Override
                             public void onResponse(JSONArray response) {
@@ -328,7 +329,7 @@ public class WalletFragment extends Fragment {
 
 
         JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(
-                Request.Method.GET, RestAPI.API_Transaction_History+method.userDTO.getMobile(),null,
+                Request.Method.GET, RestAPI.API_Transaction_History+ Method.userDTO.getMobile(),null,
                 new Response.Listener<JSONArray>() {
                     @Override
                     public void onResponse(JSONArray response) {
@@ -448,12 +449,12 @@ public class WalletFragment extends Fragment {
                 bank_name= Objects.requireNonNull(banknameEt.getText()).toString();
                 bank_ifsc= Objects.requireNonNull(bankifscEt.getText()).toString();
 
-                name =method.userDTO.getName();
-                mobile = method.userDTO.getMobile();
+                name = Method.userDTO.getName();
+                mobile = Method.userDTO.getMobile();
                 final String widthrawal_method= spinner_widthrawal.getSelectedItem().toString();
                // Toast.makeText(getContext(), widthrawal_method, Toast.LENGTH_SHORT).show();
 
-                if (method.userDTO.getWidthrawalAllow().equals("0")) {
+                if (Method.userDTO.getWidthrawalAllow().equals("0")) {
                     switch (widthrawal_method) {
                         case "PAYTM":
                             //  Toast.makeText(getContext(), "pay1", Toast.LENGTH_SHORT).show();
@@ -486,7 +487,12 @@ public class WalletFragment extends Fragment {
                                 withdrawalAmount.setError("Fields Cant be Empty");
                                 Toast.makeText(getContext(), "Enter Redeem ammount", Toast.LENGTH_SHORT).show();
 
-                            } else {
+                            }else
+                            if (Integer.parseInt(withdrawalAmount.getText().toString())>Integer.parseInt(Method.userDTO.getWallet())) {
+                                withdrawalAmount.setError("Invalid Amount ");
+                                Toast.makeText(getContext(), "Enter Redeem ammount Lesser or Equal to Your Wallet Balance", Toast.LENGTH_SHORT).show();
+
+                            }  else {
 
 
                                 insert_Withdrawal();
@@ -587,8 +593,8 @@ public class WalletFragment extends Fragment {
         bank_name= Objects.requireNonNull(banknameEt.getText()).toString();
         bank_ifsc= Objects.requireNonNull(bankifscEt.getText()).toString();
 
-        name = method.userDTO.getName();
-        mobile = method.userDTO.getMobile();
+        name = Method.userDTO.getName();
+        mobile = Method.userDTO.getMobile();
         final String widthrawal_method= spinner_widthrawal.getSelectedItem().toString();
 
 
@@ -596,17 +602,19 @@ public class WalletFragment extends Fragment {
            // Toast.makeText(requireActivity(),""+ preferences.getInt(GlobalVariables.USER_COINS, 0),   Toast.LENGTH_SHORT).show();
 
         //  Toast.makeText(requireActivity(),""+ preferences.getInt(GlobalVariables.REDEEM_MIN, 0),Toast.LENGTH_SHORT).show();
-
+        if
+        ( (redemamount) <= (Float.parseFloat(Method.userDTO.getWallet())))
+        {
 
             if
-            (Float.parseFloat(method.userDTO.getWallet()) >= (Integer.parseInt(GlobalVariables.settings.getMinRedeemAmount())))
+            (Float.parseFloat(Method.userDTO.getWallet()) >= (Integer.parseInt(Method.settings.getMinRedeemAmount())))
             {
                // Toast.makeText(getContext(), "hello2", Toast.LENGTH_SHORT).show();
 
 
-               /* if ((redemamount.equals (Float.valueOf(preferences.getInt(GlobalVariables.REDEEM_MIN, 0)))))
+              if ((redemamount> ( Float.parseFloat(Method.settings.getMinRedeemAmount()))))
 
-                {*/ // Toast.makeText(getContext(), "hello3", Toast.LENGTH_SHORT).show();
+                { // Toast.makeText(getContext(), "hello3", Toast.LENGTH_SHORT).show();
 
                     StringRequest request = new StringRequest(Request.Method.POST, RestAPI.API_INSERT_WIDTHRAWAL,
                             new com.android.volley.Response.Listener<String>() {
@@ -630,7 +638,7 @@ public class WalletFragment extends Fragment {
 
                                             if (success.equals("1")) {
 
-                                            wallet_total.setText("" + ((Float.parseFloat(method.userDTO.getWallet())) - ((Float.parseFloat(GlobalVariables.settings.getMinRedeemAmount())))));
+                                            wallet_total.setText("" + ((Float.parseFloat(Method.userDTO.getWallet())) - ((Float.parseFloat(Method.settings.getMinRedeemAmount())))));
                                             //editor.putInt(GlobalVariables.USER_COINS, Integer.parseInt(String.valueOf(((preferences.getInt(GlobalVariables.USER_COINS,0))-(preferences.getInt(GlobalVariables.REDEEM_MIN,0))))));
 
                                             // wallet_total.setText(""+(preferences.getInt(GlobalVariables.USER_COINS,0)));
@@ -686,6 +694,8 @@ public class WalletFragment extends Fragment {
                                                                 //finish();
                                                                 loadingDialog.dismiss();
                                                                 //finishAffinity();
+                                                                startActivity(new Intent(requireActivity(), HomeActivity.class));
+
                                                             }
                                                         });
 
@@ -716,7 +726,7 @@ public class WalletFragment extends Fragment {
                         protected Map<String, String> getParams() {
                             Map<String, String> params = new HashMap<>();
                             // params.put("email", email);
-                            params.put("user_id", method.userDTO.getMobile());
+                            params.put("user_id", abcdjob.workonline.com.qrcode.ui.Util.Method.userDTO.getMobile());
                             params.put("amount", amount);
                             params.put("paytm_no", paytm_no);
                             params.put("name", name);
@@ -731,12 +741,13 @@ public class WalletFragment extends Fragment {
                     RequestQueue queue = Volley.newRequestQueue(requireActivity());
                     queue.add(request);
                    // Toast.makeText(requireActivity(), "" + request, Toast.LENGTH_LONG).show();
-               /* }
+                }
                 else {
                     //progressBar.setVisibility(View.GONE);
                     loadingDialog.dismiss();
-                    Toast.makeText(requireActivity(), ("Please Enter Only " + preferences.getInt(GlobalVariables.REDEEM_MIN, 0) + " Rs To Redeem"), Toast.LENGTH_SHORT).show();
-                }*/
+                  withdrawalAmount.setText("0");
+                    Toast.makeText(requireActivity(), String.format("%s Rs To Redeem", "Please Enter Only " + Method.settings.getMinRedeemAmount()), Toast.LENGTH_SHORT).show();
+                }
 
 
 //
@@ -747,6 +758,13 @@ public class WalletFragment extends Fragment {
                 Toasty.error(requireActivity(), ("You Need atleast " + GlobalVariables.settings.getMinRedeemAmount() + " Rs To Ask for Widthrawal"), Toast.LENGTH_LONG, true).show();
                //Toast.makeText(requireActivity(), ("You Need atleast " + preferences.getInt(GlobalVariables.REDEEM_MIN, 0) + " Rs To Ask for Widthrawal"), Toast.LENGTH_SHORT).show();
             }
+        }else{
+            loadingDialog.dismiss();
+            withdrawalAmount.setError("Inavlid Amount");
+            withdrawalAmount.setText("0");
+            Toast.makeText(requireActivity(), String.format("%s  To Redeem", "Please Enter Valid Amount "), Toast.LENGTH_SHORT).show();
+
+        }
         }
 
 

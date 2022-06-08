@@ -49,7 +49,7 @@ public class Constant {
     public static UserDTO user;
 
     public static CoinHistory coinHistory;
-    public static ArrayList<Settings> settings;
+    public static Settings settings;
     public static AdModelCount adModelCount;
 
 

@@ -2,22 +2,13 @@
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:fitsSystemWindows="true"
+    android:layout_margin="@dimen/_1sdp"
     tools:context="abcdjob.workonline.com.qrcode.databinding.FragmentGenerateBinding">
 
 
 
 
-
-    <!--<androidx.cardview.widget.CardView
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginStart="@dimen/margin_12"
-    android:layout_marginEnd="@dimen/margin_12"
-    android:layout_marginBottom="@dimen/_12sdp"
-    android:padding="@dimen/_12sdp"
-    android:elevation="@dimen/_16sdp"
-    android:background="@drawable/gnt_rounded_corners_shape"
-    android:layout_gravity="center">-->
     <ScrollView
         android:id="@+id/mainlin"
         android:layout_width="match_parent"
@@ -256,7 +247,7 @@
             android:layout_marginLeft="@dimen/_5sdp"
             android:layout_marginTop="@dimen/_5sdp"
             android:layout_marginRight="@dimen/_5sdp"
-            android:layout_marginBottom="@dimen/_5sdp"
+            android:layout_marginBottom="@dimen/_2sdp"
             android:elevation="10dp"
             app:cardCornerRadius="10dp"
             tools:ignore="ObsoleteLayoutParam,UnusedAttribute">
@@ -264,15 +255,16 @@
             <!--Relative layout to display -->
             <!-- use of programming languages -->
 
-            <ScrollView
+         <!--   <ScrollView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@color/colorAccent2"
-                tools:ignore="NestedScrolling">
+                tools:ignore="NestedScrolling">-->
 
                 <LinearLayout
                     android:id="@+id/ml2"
                     android:visibility="visible"
+                    android:background="@color/colorAccent2"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
@@ -429,6 +421,7 @@
                                     app:lineWidth="1dp" />
 
                                 <LinearLayout
+                                    android:background="@drawable/text_box"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:orientation="horizontal">
@@ -442,8 +435,8 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
                                         android:maxLength="1"
+                                        android:inputType="text"
                                         android:textSize="@dimen/_20sdp"
                                         android:text=""
                                         android:textColor="@color/black"
@@ -462,8 +455,8 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
                                         android:maxLength="1"
+                                        android:inputType="text"
                                         android:textSize="@dimen/_20sdp"
                                         android:text=""
                                         android:textColor="@color/black"
@@ -483,9 +476,9 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
                                         android:maxLength="1"
                                         android:textSize="@dimen/_20sdp"
+                                        android:inputType="number"
                                         android:text=""
                                         android:textColor="@color/black"
                                         app:prevView="@id/otp2"
@@ -504,7 +497,7 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
+                                        android:inputType="number"
                                         android:maxLength="1"
                                         android:textSize="@dimen/_20sdp"
                                         android:text=""
@@ -524,7 +517,7 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
+                                        android:inputType="number"
                                         android:maxLength="1"
                                         android:textSize="@dimen/_20sdp"
                                         android:text=""
@@ -545,7 +538,7 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
+                                        android:inputType="number"
                                         android:maxLength="1"
                                         android:textSize="@dimen/_20sdp"
                                         android:text=""
@@ -566,7 +559,7 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
+                                        android:inputType="number"
                                         android:maxLength="1"
                                         android:textSize="@dimen/_20sdp"
                                         android:text=""
@@ -586,7 +579,7 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
+                                        android:inputType="number"
                                         android:maxLength="1"
                                         android:textSize="@dimen/_20sdp"
                                         android:text=""
@@ -607,7 +600,7 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
+                                        android:inputType="number"
                                         android:maxLength="1"
                                         android:textSize="@dimen/_20sdp"
                                         android:text=""
@@ -629,7 +622,7 @@
                                         android:focusable="true"
                                         android:imeOptions="actionNext"
                                         android:gravity="center"
-                                        android:inputType="text"
+                                        android:inputType="number"
                                         android:maxLength="1"
                                         android:textSize="@dimen/_20sdp"
                                         android:text=""
@@ -739,6 +732,7 @@
                                 android:elevation="10dp"
                                 app:cardCornerRadius="10dp"
                                 android:background="@color/favcolour"
+                                android:paddingBottom="@dimen/_150sdp"
                                 tools:ignore="ObsoleteLayoutParam,UnusedAttribute">
 
 
@@ -749,10 +743,11 @@
                                     android:layout_height="wrap_content"
                                     android:background="@drawable/text_view_background_gray_color"
                                     android:fontFamily="@font/opensans_regular"
-                                    android:gravity="top|start"
+                                    android:gravity="top"
                                     android:hint="Enter Above Pin Code"
                                     android:ellipsize="end"
                                     android:maxLines="1"
+
                                     android:singleLine="true"
                                     android:padding="@dimen/padding_12"
                                     android:textColor="@color/black"
@@ -796,8 +791,6 @@
                             app:layout_constraintTop_toBottomOf="@+id/coordinator_layout_spinner_container" />
 
                     </LinearLayout>
-
-
 
 
                     <androidx.appcompat.widget.AppCompatEditText
@@ -875,81 +868,13 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toBottomOf="@+id/coordinator_layout_spinner_container" />
 
-                </LinearLayout>
 
-            </ScrollView>
+
+                </LinearLayout>
 
 
         </androidx.cardview.widget.CardView>
 
-
-        <!--  <androidx.cardview.widget.CardView
-        android:background="@color/transparent"
-        android:layout_marginTop="@dimen/_4sdp"
-        android:layout_marginStart="@dimen/_4sdp"
-        android:layout_marginEnd="@dimen/_4sdp"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="@dimen/_15sdp"
-        android:layout_gravity="center"
-        app:contentPadding="@dimen/_15sdp"
-        app:cardCornerRadius="30dp">
-
-        <LinearLayout
-            android:gravity="center"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_gravity="center">
-
-
-<LinearLayout
-android:layout_width="match_parent"
-android:layout_height="wrap_content"
-android:layout_marginStart="@dimen/margin_16"
-android:orientation="vertical"
-android:layout_gravity="center">
-
-<TextView
-    android:id="@+id/totalcodes"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:layout_marginBottom="@dimen/_2sdp"
-    android:fontFamily="@font/mauli"
-    android:gravity="left"
-    android:text="Total Codes : 100"
-    android:textColor="@color/favcolour"
-    android:textSize="@dimen/_16sdp"
-    tools:ignore="InvalidId" />
-
-<TextView
-    android:id="@+id/correctcodes"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Correct Codes : 100"
-    android:textSize="@dimen/_16sdp"
-    android:fontFamily="@font/mauli"
-    android:layout_marginBottom="@dimen/_2sdp"
-    android:gravity="left"
-    android:textColor="@color/favcolour"
-    tools:ignore="InvalidId" />
-
-<TextView
-    android:id="@+id/wrongcodes"
-    android:layout_width="match_parent"
-    android:layout_height="wrap_content"
-    android:text="Wrong Code : 100"
-    android:textSize="@dimen/_14sdp"
-    android:fontFamily="@font/mauli"
-    android:layout_marginBottom="@dimen/_2sdp"
-    android:gravity="left"
-    android:textColor="@color/favcolour"
-    tools:ignore="InvalidId" />
-
-</LinearLayout>
-        </LinearLayout>
-
-</androidx.cardview.widget.CardView>-->
 
 
 

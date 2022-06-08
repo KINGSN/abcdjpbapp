@@ -1,12 +1,127 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:layout_gravity="center"
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="250dp"
+    android:layout_height="wrap_content"
+
+    android:layout_gravity="center_horizontal"
     android:padding="7dp"
     android:background="@drawable/gnt_outline_shape">
 
     <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/R" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/transparent"
+        android:orientation="vertical">
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="5dp"
+        android:background="@color/R" />
+
+    <ImageView
+        android:id="@+id/image"
+        android:layout_width="70dp"
+        android:layout_height="70dp"
+        android:layout_gravity="center_horizontal"
+        android:layout_margin="10dp"
+        android:background="@drawable/paym"
+        android:padding="10dp"
+        />
+
+        <TextView
+            android:id="@+id/cssub2"
+            android:layout_width="wrap_content"
+            android:gravity="center"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
+            android:text="One Step Away To Your Account"
+            android:layout_marginBottom="5dp"
+            android:textColor="@color/black"
+            android:textSize="18sp" />
+
+    </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent3"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/cssub3"
+                android:textColor="@color/white"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:gravity="center_horizontal"
+                android:layout_marginTop="15dp"
+                android:text="Just Pay The App Joining Fee and \n Unlock Your Dashboard"
+                android:textSize="14sp" />
+
+
+            <Button
+                android:id="@+id/paybtn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginStart="30dp"
+                android:layout_marginTop="20dp"
+                android:background="@drawable/mybutton"
+                android:layout_marginEnd="30dp"
+                android:layout_marginBottom="10dp"
+                android:text="PAY"
+                android:clickable="true"
+                android:textAllCaps="false" />
+
+            <Button
+                android:id="@+id/paybtn2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/mybutton"
+                android:text="Contact us"
+                android:layout_marginBottom="10dp"
+                android:textAllCaps="false"
+                android:visibility="gone" />
+
+            <Button
+                android:id="@+id/paybtn3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/mybutton"
+                android:text="Pay By Cash"
+                android:layout_marginBottom="10dp"
+                android:textAllCaps="false"
+                android:visibility="gone" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent2"
+        android:orientation="vertical">
+
+
+  <!--  <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:orientation="vertical"
@@ -58,7 +173,7 @@
             android:visibility="gone"
             android:gravity="center"/>
 
-        <LinearLayout
+    &lt;!&ndash;    <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
@@ -104,7 +219,7 @@
                 android:textColor="@color/white"
                 android:visibility="gone" />
 
-        </LinearLayout>
+        </LinearLayout>&ndash;&gt;
 
 
 
@@ -116,7 +231,7 @@
 
 
 
-            <!-- <TextView
+            &lt;!&ndash; <TextView
                  android:id="@+id/text"
                  android:textSize="18dp"
                  android:layout_width="wrap_content"
@@ -124,11 +239,11 @@
                  android:textColor="@color/BloddColour"
                  android:fontFamily="@font/mauli"
                  android:layout_toRightOf="@+id/image"/>
- -->
+ &ndash;&gt;
 
 
         </LinearLayout>
-      <!--  <TextView
+      &lt;!&ndash;  <TextView
             android:id="@+id/cssub"
             android:layout_width="wrap_content"
             android:layout_height="match_parent"
@@ -137,7 +252,7 @@
             android:layout_marginLeft="50dp"
             android:text="App developed By-abcdjob Technology"
             android:layout_gravity="left"
-            android:gravity="center"/>-->
+            android:gravity="center"/>&ndash;&gt;
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -163,7 +278,7 @@
         android:visibility="gone"
         />
 
- <!--   <LinearLayout
+ &lt;!&ndash;   <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
@@ -186,11 +301,15 @@
             android:textColor="@color/green"
             android:textSize="10dp" />
 
-    </LinearLayout>-->
+    </LinearLayout>&ndash;&gt;
 
 </LinearLayout>
 
 
+    </LinearLayout>-->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="5dp"
+            android:background="@color/R" />
     </LinearLayout>
-
-</RelativeLayout>
+</androidx.cardview.widget.CardView>

@@ -642,6 +642,7 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
             }
         }
+        method.onActivityResult(HomeActivity.this,requestCode,resultCode, data);
     }
 
     /**
@@ -661,4 +662,13 @@ public class HomeActivity extends AppCompatActivity implements View.OnClickListe
 
         return true;
     }
+
+   /* @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        method.onActivityResult(HomeActivity.this,requestCode,resultCode, data);
+    }*/
+
+
+
 }

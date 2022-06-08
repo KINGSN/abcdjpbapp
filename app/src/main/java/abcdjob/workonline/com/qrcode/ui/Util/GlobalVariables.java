@@ -175,6 +175,7 @@ public class GlobalVariables {
     //todo:
     public static final String CHANNEL_ID = "exampleChannel";
     public static final String USER_DTO = "userDTO";
+    public static final String SettingsDto = "settingsDTO";
     public static final Boolean USER_IS_LOGIN = false;
     public static Settings settings;
     public static UserDTO usermDTO;

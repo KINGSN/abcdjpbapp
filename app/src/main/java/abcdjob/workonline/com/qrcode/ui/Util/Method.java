@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -24,9 +25,8 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
 
+import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
 import com.android.volley.RequestQueue;
 import com.android.volley.Response;
@@ -52,8 +52,10 @@ import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
+import com.paytm.pgsdk.PaytmOrder;
+import com.paytm.pgsdk.PaytmPGService;
+import com.paytm.pgsdk.PaytmPaymentTransactionCallback;
 import com.razorpay.Checkout;
-import com.razorpay.PaymentData;
 
 
 import org.json.JSONArray;
@@ -62,8 +64,8 @@ import org.json.JSONObject;
 
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 import java.util.Random;
@@ -75,19 +77,21 @@ import abcdjob.workonline.com.qrcode.Models.UserDTO;
 import abcdjob.workonline.com.qrcode.R;
 import abcdjob.workonline.com.qrcode.preferences.SharedPrefrence;
 import abcdjob.workonline.com.qrcode.ui.ContactActivity;
+import abcdjob.workonline.com.qrcode.ui.ForgotActivity;
 import abcdjob.workonline.com.qrcode.ui.Interface.InterstitialAdView;
 import abcdjob.workonline.com.qrcode.ui.Interface.VideoAds;
+import abcdjob.workonline.com.qrcode.ui.RegisterActivity;
 import abcdjob.workonline.com.qrcode.ui.generatedcode.GeneratedCodeActivity;
 import abcdjob.workonline.com.qrcode.ui.home.HomeActivity;
-import abcdjob.workonline.com.qrcode.ui.settings.SettingsActivity;
+import abcdjob.workonline.com.qrcode.ui.splash.SplashActivity;
 import es.dmoral.toasty.Toasty;
 
+import static android.app.Activity.RESULT_OK;
 import static android.content.Context.MODE_PRIVATE;
 
 
 public class Method {
     private Constant Constant;
-    private Settings settings;
     private SharedPreferences preferences;
     private SharedPreferences.Editor editor;
     // UserDTO Loging logs added
@@ -105,25 +109,40 @@ public class Method {
     com.google.android.gms.ads.AdView mAdView;
     private GeneratedCodeActivity GeneratedCodeActivity;
     public HashMap<String, String> params = new HashMap<>();
-    public Dialog loadingDialog;
+    public static Dialog loadingDialog;
     public SharedPrefrence preferencess;
-    public UserDTO userDTO;
+    public static UserDTO userDTO;
+    public static  Settings settings;
     TimerTask timerTask;
     Timer timer;
     Double time = 0.0;
     private int qrtime=0;
     private int qrtime1=0;
     boolean timerStarted = false;
-    public String url,test,url2,checksum,orderId,mobile;
-
+    public String url;
+    public String test;
+    public String url2;
+    public String checksum;
+    public String orderId;
+    public String mobile;
+    public static String finalOrderId;
+    public static final String WEBSITE = "DEFAULT";
+    public static final String INDUSTRY_TYPE_ID = "Retail";
+    public static final String CALLBACK_URL = "https://pguat.paytm.com/paytmchecksum/paytmCallback.jsp";
+    final int UPI_PAYMENT = 0;
     @SuppressLint("CommitPrefEdits")
     public Method(Context context) {
         this._context = context;
         preferences = context.getSharedPreferences(GlobalVariables.ADMIN_PREF, MODE_PRIVATE);
         preferencess = SharedPrefrence.getInstance(context);
         userDTO = preferencess.getParentUser2(GlobalVariables.USER_DTO);
+        settings=preferencess.getSettings(GlobalVariables.SettingsDto);
         Log.d(TAG, "Method: "+userDTO.getEmail()+userDTO.getMobile());
         editor = preferences.edit();
+        finalOrderId="";
+        Random r = new Random(System.currentTimeMillis());
+        orderId = "QRCODE" + (1 + r.nextInt(2)) * 1000
+                + r.nextInt(1000);
     }
 
     public void showFbBanner(Activity activity, FrameLayout FrameLayout)
@@ -873,9 +892,9 @@ public class Method {
 
     }
 
- /*   public static void alert(Activity activity){
+    public void alert(Activity activity){
 
-        if(GlobalVariables.usermDTO.getAllow() == "2") {
+        if(userDTO.getAllow().equals("2")) {
             Toast.makeText(activity, "Your account is blocked", Toast.LENGTH_SHORT).show();
             //finish();
             //return;
@@ -901,14 +920,14 @@ public class Method {
                     alertDialog.dismiss();
                     activity.startActivity(new Intent(activity, ContactActivity
                             .class));
-                    activity.finish();
+                    activity. finish();
 
                 }
             });
 
         }else
-        if(GlobalVariables.usermDTO.getJoiningPaid() == "1") {
-            //Toast.makeText(activity, "Your account is blocked", Toast.LENGTH_SHORT).show();
+        if(userDTO.getJoiningPaid().equals("1")) {
+            //Toast.makeText(HomeActivity.this, "Your account is blocked", Toast.LENGTH_SHORT).show();
             //finish();
             //return;
 
@@ -918,7 +937,7 @@ public class Method {
             TextView text = dialogView.findViewById(R.id.cssub2);
             TextView text2 = dialogView.findViewById(R.id.cssub3);
             text.setText("One Step Away To Your Account");
-            text2.setText("Just Pay The App Joining Fee and \n" +
+            text2.setText(" Buy DataBase To  \n" +
                     " Unlock Your Dashboard");
             ImageView image = dialogView.findViewById(R.id.image);
             image.setImageResource(R.drawable.paym);
@@ -935,9 +954,9 @@ public class Method {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                                        Activity.startActivity(new Intent(activity, SettingsActivity
-                                                .class));
-                    //loadingDialog.show();
+                                        /*startActivity(new Intent(HomeActivity.this, SettingsActivity
+                                                .class));*/
+                    loadingDialogg(activity);
                     // GenerateChecksum();
                     startPayment(activity);
                     // finish();
@@ -950,9 +969,9 @@ public class Method {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                                        activity.startActivity(new Intent(activity, SettingsActivity
-                                                .class));
-                    //loadingDialog.show();
+                                        /*startActivity(new Intent(HomeActivity.this, SettingsActivity
+                                                .class));*/
+                    loadingDialogg(activity);
 
                     onSuccessPay(activity,orderId);
                     // finish();
@@ -961,8 +980,8 @@ public class Method {
             });
 
         }else
-        if(GlobalVariables.usermDTO.getJoiningPaid()  == "3") {
-            //Toast.makeText(activity, "Your account is blocked", Toast.LENGTH_SHORT).show();
+        if(userDTO.getJoiningPaid().equals("3")) {
+            //Toast.makeText(HomeActivity.this, "Your account is blocked", Toast.LENGTH_SHORT).show();
             //finish();
             //return;
 
@@ -972,8 +991,7 @@ public class Method {
             TextView text = dialogView.findViewById(R.id.cssub2);
             TextView text2 = dialogView.findViewById(R.id.cssub3);
             text.setText("Verification Pending ");
-            text2.setText("Your Last  App Joining Fee  \n Payment is " +
-                    " Under Verification \n Plese Wait For The Approval !");
+            text2.setText(" Plese Wait For The Approval !");
             ImageView image = dialogView.findViewById(R.id.image);
             image.setImageResource(R.drawable.paym);
             Button appPay = dialogView.findViewById(R.id.paybtn);
@@ -989,13 +1007,13 @@ public class Method {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                                        activity.startActivity(new Intent(activity, SettingsActivity
-                                                .class));
-                    //loadingDialog.show();
+                                        /*startActivity(new Intent(HomeActivity.this, SettingsActivity
+                                                .class));*/
+                    loadingDialogg(activity);
                     //GenerateChecksum();
                     // finish();
-                    activity.finish();
-                    loadingDialog.dismiss();
+                    activity. finish();
+                    //loadingDialog.dismiss();
                     activity.finishAffinity();
 
                 }
@@ -1005,7 +1023,7 @@ public class Method {
                 @Override
                 public void onClick(View v) {
                     alertDialog.dismiss();
-                    activity.startActivity(new Intent(activity, ContactActivity
+                    activity. startActivity(new Intent(activity, ContactActivity
                             .class));
                     //loadingDialog.show();
                     //GenerateChecksum();
@@ -1020,28 +1038,291 @@ public class Method {
         }
     }
 
-    public static void onSuccessPay(Activity activity, String orderId) {
+
+
+    public void startPayment(Activity activity){
+        if(GlobalVariables.settings.getPaymentGateway().equals("paytm_gateway")){
+            GenerateChecksum(activity);
+        }else if(GlobalVariables.settings.getPaymentGateway().equals("razorpay_gateway")) {
+            startRazorPayment(activity);
+        }else if(GlobalVariables.settings.getPaymentGateway().equals("payumoney_gateway")) {
+            startPayuPayment(activity);
+        }if(GlobalVariables.settings.getPaymentGateway().equals("upiId")) {
+            String upiId = GlobalVariables.settings.getUpiId();
+            String name = (userDTO.getName());
+            String desc = "Add Money";
+            String note = (userDTO.getMobile());
+            // String note = noteEt.getText().toString();
+            payUsingUpi(activity,GlobalVariables.settings.getAppJoiningFee(), upiId, name, note);
+        }
+    }
+
+
+    public static void startRazorPayment(Activity activity) {
+        Checkout checkout = new Checkout();
+        /**
+         * You need to pass current activity in order to let Razorpay create CheckoutActivity
+         */
+
+        final Checkout co = new Checkout();
+        checkout.setKeyID(GlobalVariables.settings.getPayumoneyKey());
+        /**
+         * Instantiate Checkout
+         */
+
+
+        /**
+         * Set your logo here
+         */
+        checkout.setImage(R.mipmap.ic_launcher_round);
+
+        try {
+            JSONObject options = new JSONObject();
+            options.put("name", "NextGen Solution  Pvt.Ltd");
+            options.put("description", "App Joining Fee");
+            //You can omit the image option to fetch the image from dashboard
+            options.put("image", "https://abcdjob.live/assets/images/profile");
+            options.put("currency", "INR");
+
+            String payment = (GlobalVariables.settings.getAppJoiningFee());;
+
+            double total = Double.parseDouble(payment);
+            total = total * 100;
+            options.put("amount", total);
+            JSONObject preFill = new JSONObject();
+            preFill.put("email",userDTO.getEmail());
+            preFill.put("contact", userDTO.getMobile());
+            options.put("prefill", preFill);
+            co.open(activity, options);
+        } catch (Exception e) {
+            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            e.printStackTrace();
+        }
+    }
+
+
+    public void  GenerateChecksum(Activity activity) {
+        loadingDialogg(activity);
+        Random r = new Random(System.currentTimeMillis());
+        orderId = "QRCODE" + (1 + r.nextInt(2)) * 1000
+                + r.nextInt(1000);
+        //  editor.putString(GlobalVariables.txn_orderId, orderId);
+
+
+        String url="https://abcdjob.live/admin/paytm1/generateChecksum.php";
+
+
+        Map<String, String> params = new HashMap<>();
+        params.put( "MID" , GlobalVariables.settings.getPaytmMid());
+        params.put( "ORDER_ID" , orderId);
+        params.put( "CUST_ID" , userDTO.getUserReferalCode());
+        params.put( "MOBILE_NO" , userDTO.getMobile());
+        params.put( "EMAIL" ,userDTO.getEmail());
+        params.put( "CHANNEL_ID" , "WAP");
+        params.put( "TXN_AMOUNT" , GlobalVariables.settings.getAppJoiningFee());
+        params.put( "WEBSITE" , WEBSITE);
+        params.put( "INDUSTRY_TYPE_ID" , INDUSTRY_TYPE_ID);
+        params.put( "CALLBACK_URL", CALLBACK_URL);
+
+        // Instantiate the RequestQueue.
+        RequestQueue queue = Volley.newRequestQueue(activity);
+// Request a string response from the provided URL.
+        StringRequest stringRequest=new StringRequest(Request.Method.POST, url,
+
+                new Response.Listener<String>() {
+                    @Override
+                    public void onResponse(String response) {
+
+                        // Toast.makeText(HomeActivity.this,response,Toast.LENGTH_SHORT).show();
+                        try {
+                            JSONObject jsonObject=new JSONObject(response);
+                            if (jsonObject.has("CHECKSUMHASH"))
+                            {
+                                checksum=jsonObject.getString("CHECKSUMHASH");
+                                onStartTransaction(activity);
+                            }
+                        } catch (JSONException e) {
+                            e.printStackTrace();
+                        }
+                    }
+                }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+
+                //Toast.makeText(HomeActivity.this,"Error...!",Toast.LENGTH_SHORT).show();
+                error.printStackTrace();
+                activity.finish();
+                activity.startActivity(activity.getIntent());
+                loadingDialog.dismiss();
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() throws AuthFailureError {
+                Map<String, String> params=new HashMap<String, String>();
+                params.put( "MID" , GlobalVariables.settings.getPaytmMid());
+                params.put( "ORDER_ID" , orderId);
+                params.put( "CUST_ID" , userDTO.getUserReferalCode());
+                params.put( "MOBILE_NO" , userDTO.getMobile());
+                params.put( "EMAIL" , userDTO.getEmail());
+                params.put( "CHANNEL_ID" , "WAP");
+                params.put( "TXN_AMOUNT" , GlobalVariables.settings.getAppJoiningFee());
+                params.put( "WEBSITE" , WEBSITE);
+                params.put( "INDUSTRY_TYPE_ID" , INDUSTRY_TYPE_ID);
+                params.put( "CALLBACK_URL", CALLBACK_URL);
+
+                return params;
+            }
+        };
+
+
+        queue.add(stringRequest);
+// Access the RequestQueue through your singleton class.
+        //MySingleton.getInstance(this).addToRequestQueue(jsonObjectRequest);
+    }
+
+    public static void startPayuPayment(Activity activity){
+
+    }
+
+
+    public void onStartTransaction(Activity activity) {
+        PaytmPGService Service = PaytmPGService.getProductionService();
+        Map<String, String> paramMap = new HashMap<>();
+        paramMap.put( "MID" , GlobalVariables.settings.getPaytmMid());
+        // Key in your staging and production MID available in your dashboard
+
+
+        paramMap.put( "ORDER_ID" , orderId);
+        paramMap.put( "CUST_ID" , userDTO.getUserReferalCode());
+        paramMap.put( "MOBILE_NO" ,userDTO.getMobile());
+        paramMap.put( "EMAIL" ,userDTO.getEmail());
+        paramMap.put( "CHANNEL_ID" , "WAP");
+        paramMap.put( "TXN_AMOUNT" , GlobalVariables.settings.getAppJoiningFee());
+        paramMap.put( "WEBSITE" , WEBSITE);
+        paramMap.put( "INDUSTRY_TYPE_ID" , INDUSTRY_TYPE_ID);
+        paramMap.put( "CALLBACK_URL", CALLBACK_URL);
+        paramMap.put( "CHECKSUMHASH" , checksum);
+
+
+
+        PaytmOrder Order = new PaytmOrder((HashMap<String, String>) paramMap);
+
+
+
+        Service.initialize(Order, null);
+
+
+
+        Service.startPaymentTransaction(activity, true,
+                true, new PaytmPaymentTransactionCallback() {
+
+                    @Override
+                    public void onTransactionResponse(Bundle inResponse) {
+                        System.out.println("===== onTransactionResponse " + inResponse.toString());
+                        if (Objects.equals(inResponse.getString("STATUS"), "TXN_SUCCESS")) {
+                            //    Payment Success
+                            Toast.makeText(activity," Transaction success",Toast.LENGTH_LONG).show();
+
+                            //uploadData();
+                            onSuccessPay(activity,orderId);
+                        } else if (!inResponse.getBoolean("STATUS")) {
+                            //    Payment Failed
+                            Toast.makeText(activity," Transaction Failed",Toast.LENGTH_LONG).show();
+                            //startActivity(new Intent(getContext(), HomeActivity.class));
+                            activity.finish();
+                            activity. startActivity(activity.getIntent());
+                            loadingDialog.dismiss();
+
+                        }
+                    }
+
+                    @Override
+                    public void networkNotAvailable() {
+                        // network error
+                        //clickOnGenerate();
+                        activity. finish();
+                        activity. startActivity(activity.getIntent());
+                       loadingDialog.dismiss();
+                    }
+
+                    @Override
+                    public void clientAuthenticationFailed(String inErrorMessage) {
+                        // AuthenticationFailed
+                        activity.finish();
+                        activity. startActivity(activity.getIntent());
+
+                        // clickOnGenerate();
+                        //startActivity(new Intent(getContext(), HomeActivity.class));
+                       loadingDialog.dismiss();
+                    }
+
+                    @Override
+                    public void someUIErrorOccurred(String inErrorMessage) {
+                        // UI Error
+                        // clickOnGenerate();
+                        activity.finish();
+                        activity. startActivity(activity.getIntent());
+                        loadingDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onErrorLoadingWebPage(int iniErrorCode, String inErrorMessage, String inFailingUrl) {
+                        //  Web page loading error
+                        //clickOnGenerate();
+                        //startActivity(new Intent(getContext(), HomeActivity.class));
+                        activity.finish();
+                        activity. startActivity(activity.getIntent());
+                       loadingDialog.dismiss();
+                    }
+
+                    @Override
+                    public void onBackPressedCancelTransaction() {
+                        // on cancelling transaction
+
+                        //clickOnGenerate();
+                        // startActivity(new Intent(getContext(), HomeActivity.class));
+                        activity.finish();
+                        activity. startActivity(activity.getIntent());
+                        loadingDialog.dismiss();
+
+                    }
+
+                    @Override
+                    public void onTransactionCancel(String inErrorMessage, Bundle inResponse) {
+                        // maybe same as onBackPressedCancelTransaction()
+                        //clickOnGenerate();
+                        //startActivity(new Intent(getContext(), HomeActivity.class));
+                        activity.finish();
+                        activity. startActivity(activity.getIntent());
+                        loadingDialog.dismiss();
+                    }
+                });
+    }
+
+
+    private void onSuccessPay(Activity activity, String orderId) {
 
         if(orderId ==null){
-            //Toast.makeText(activity, "NULL", Toast.LENGTH_LONG).show();
+            //Toast.makeText(HomeActivity.this, "NULL", Toast.LENGTH_LONG).show();
             //editor.putString(GlobalVariables.txn_orderId, orderId);
 
 
             Random r = new Random(System.currentTimeMillis());
             orderId = "BYCASH" + (1 + r.nextInt(2)) * 1000
                     + r.nextInt(1000);
-            editor.putString(GlobalVariables.txn_orderId, orderId);
+            //  editor.putString(GlobalVariables.txn_orderId, this.orderId);
+            preferencess.setValue(GlobalVariables.txn_orderId,orderId);
 
         }
-        Method method = new Method(activity);
-        method.loadingDialogg(activity);
+        loadingDialogg(activity);
+        String finalOrderId = orderId;
         StringRequest stringRequest = new StringRequest(Request.Method.POST, RestAPI.API_insert_payment_verification,
                 new Response.Listener<String>() {
                     @Override
                     public void onResponse(String response) {
                         // Toast.makeText(LoginActivity.this, "RESPONSE: " + response, Toast.LENGTH_SHORT).show();
                         try {
-                            System.out.println(response);
+                            //    System.out.println(response);
                             JSONObject jsonObject = new JSONObject(response);
 
                             JSONArray jsonArray = jsonObject.getJSONArray(GlobalVariables.AppSid);
@@ -1055,9 +1336,8 @@ public class Method {
                                     Toast.makeText(activity, "Updated", Toast.LENGTH_SHORT).show();
                                     activity.finish();
                                     // startActivity(getIntent());
-                                    Method method = new Method(activity);
-                                    method.loadingDialog.dismiss();
-
+                                    loadingDialog.dismiss();
+//                                    loadingDialog.dismiss();
                                     android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(activity);
                                     alertDialogBuilder.setTitle(object.getString("title"));
                                     alertDialogBuilder.setMessage(object.getString("msg"));
@@ -1067,7 +1347,7 @@ public class Method {
                                                 @Override
                                                 public void onClick(DialogInterface arg0, int arg1) {
                                                     activity.finish();
-                                                    method.loadingDialog.dismiss();
+                                                    loadingDialog.dismiss();
                                                     activity.finishAffinity();
                                                 }
                                             });
@@ -1078,7 +1358,7 @@ public class Method {
 
 
                                 } else {
-                                    method.loadingDialog.dismiss();
+                                    loadingDialog.dismiss();
                                     android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(activity);
                                     alertDialogBuilder.setTitle(object.getString("title"));
                                     alertDialogBuilder.setMessage(object.getString("msg"));
@@ -1088,8 +1368,8 @@ public class Method {
                                                 @Override
                                                 public void onClick(DialogInterface arg0, int arg1) {
                                                     activity.finish();
-                                                    method.loadingDialog.dismiss();
-                                                    activity. finishAffinity();
+                                                   loadingDialog.dismiss();
+                                                    activity.finishAffinity();
                                                 }
                                             });
 
@@ -1117,7 +1397,7 @@ public class Method {
                 Log.e("Error", "" + error.getMessage());
                 Toast.makeText(activity, "ErrorV: " + error.getMessage(),
                         Toast.LENGTH_SHORT).show();
-                method.loadingDialog.dismiss();
+                loadingDialog.dismiss();
                 android.app.AlertDialog.Builder alertDialogBuilder = new android.app.AlertDialog.Builder(activity);
                 alertDialogBuilder.setTitle("Something Went Wrong");
                 alertDialogBuilder.setMessage("Please Try With Active Internet ");
@@ -1127,8 +1407,8 @@ public class Method {
                             @Override
                             public void onClick(DialogInterface arg0, int arg1) {
                                 activity.finish();
-                                method.loadingDialog.dismiss();
-                                activity.finishAffinity();
+                                loadingDialog.dismiss();
+                                activity. finishAffinity();
                             }
                         });
 
@@ -1141,12 +1421,12 @@ public class Method {
 
             Map<String, String> params = new HashMap<>();
             params.put("app_joining_fee_paid","");
-            params.put("user_id", preferences.getString(GlobalVariables.USER_MOBILE,""));
-            params.put("name",preferences.getString(GlobalVariables.USERNAME,""));
-            params.put("email",preferences.getString(GlobalVariables.USER_EMAIL,""));
-            params.put("paid",preferences.getString(GlobalVariables.APP_JOINING_FEE,""));
-            params.put("order_id", orderId);
-            params.put("city",preferences.getString(GlobalVariables.USER_CITY,""));
+            params.put("user_id", userDTO.getMobile());
+            params.put("name",userDTO.getName());
+            params.put("email", userDTO.getEmail());
+            params.put("paid",userDTO.getJoiningPaid());
+            params.put("order_id", finalOrderId);
+            params.put("city",userDTO.getCity());
 
             return params;
         }
@@ -1159,81 +1439,211 @@ public class Method {
 
     }
 
+    public void payUsingUpi(Activity activity, String amount, String upiId, String name, String note) {
 
-    public static void startPayment(Activity activity){
-        if(preferences.getString(GlobalVariables.PAYMENT_GATEWAY, "").equals("paytm_gateway")){
-            GenerateChecksum(activity);
-        }else if(preferences.getString(GlobalVariables.PAYMENT_GATEWAY, "").equals("razorpay_gateway")) {
-            startRazorPayment(activity);
-        }else if(preferences.getString(GlobalVariables.PAYMENT_GATEWAY, "").equals("payumoney_gateway")) {
-            startPayuPayment(activity);
-        }else{
+        Uri uri = Uri.parse("upi://pay").buildUpon()
+                .appendQueryParameter("pa", upiId)
+                .appendQueryParameter("pn", name)
+                .appendQueryParameter("tn", note)
+                .appendQueryParameter("am", amount)
+                .appendQueryParameter("cu", "INR")
+                .build();
 
+
+        Intent upiPayIntent = new Intent(Intent.ACTION_VIEW);
+        upiPayIntent.setData(uri);
+
+        // will always show a dialog to user to choose an app
+        Intent chooser = Intent.createChooser(upiPayIntent, "Pay with");
+
+        // check if intent resolves
+        if(null != chooser.resolveActivity(activity.getPackageManager())) {
+           activity. startActivityForResult(chooser, UPI_PAYMENT);
+        } else {
+            Toast.makeText(activity,"No UPI app found, please install one to continue",Toast.LENGTH_SHORT).show();
         }
-    }
-
-
-    public void startRazorPayment(Activity activity) {
-        Checkout checkout = new Checkout();
-        *
-         * You need to pass current activity in order to let Razorpay create CheckoutActivity
-
-
-        final Checkout co = new Checkout();
-        checkout.setKeyID(preferences.getString(GlobalVariables.PAYUMONEY_MERCHENT_KEY,""));
-        *
-         * Instantiate Checkout
-
-
-
-        *
-         * Set your logo here
-
-        checkout.setImage(R.mipmap.ic_launcher_round);
-
-        try {
-            JSONObject options = new JSONObject();
-            options.put("name", "V1infotech Pvt.Ltd");
-            options.put("description", "App Joining Fee");
-            //You can omit the image option to fetch the image from dashboard
-            options.put("image", "https://v1infotech.com/admin/assets/images/profile");
-            options.put("currency", "INR");
-
-            String payment = (preferences.getString(GlobalVariables.APP_JOINING_FEE,""));;
-
-            double total = Double.parseDouble(payment);
-            total = total * 100;
-            options.put("amount", total);
-            JSONObject preFill = new JSONObject();
-            preFill.put("email", preferences.getString(GlobalVariables.USER_EMAIL,""));
-            preFill.put("contact", preferences.getString(GlobalVariables.USER_MOBILE,""));
-            options.put("prefill", preFill);
-            co.open(activity, options);
-        } catch (Exception e) {
-            Toast.makeText(activity, "Error in payment: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            e.printStackTrace();
-        }
-
-
-
-
-
-
-
-
-    public static void onPaymentSuccess(Activity activity,String s, PaymentData paymentData) {
-
-        Toast.makeText(activity, "oid"+paymentData.getOrderId()+"pid"+paymentData.getPaymentId()+"user contact" +
-                paymentData.getUserContact()+"user email"+paymentData.getUserEmail()  , Toast.LENGTH_SHORT).show();
-        onSuccessPay(activity,paymentData.getOrderId());
 
     }
 
-  
-    public static void onPaymentError(Activity activity,int i, String s, PaymentData paymentData) {
+    public void onActivityResult(Activity activity,int requestCode, int resultCode, Intent data) {
 
-        alert(activity);
 
-    }}
-*/
+        if (requestCode == UPI_PAYMENT) {
+            if ((RESULT_OK == resultCode) || (resultCode == 11)) {
+                if (data != null) {
+                    String trxt = data.getStringExtra("response");
+                    Log.d("UPI", "onActivityResult: " + trxt);
+                    ArrayList<String> dataList = new ArrayList<>();
+                    dataList.add(trxt);
+                    upiPaymentDataOperation(dataList,activity);
+                } else {
+                    Log.d("UPI", "onActivityResult: " + "Return data is null");
+                    ArrayList<String> dataList = new ArrayList<>();
+                    dataList.add("nothing");
+                    upiPaymentDataOperation(dataList,activity);
+                }
+            } else {
+                Log.d("UPI", "onActivityResult: " + "Return data is null"); //when user simply back without payment
+                ArrayList<String> dataList = new ArrayList<>();
+                dataList.add("nothing");
+                upiPaymentDataOperation(dataList,activity);
+            }
+        }
+
+        // Result Code is -1 send from Payumoney activity
+        Log.d("MainActivity", "request code " + requestCode + " resultcode " + resultCode);
+
+    }
+
+    public void upiPaymentDataOperation(ArrayList<String> data,Activity activity) {
+        String str = data.get(0);
+        Log.d("UPIPAY", "upiPaymentDataOperation: "+str);
+        String paymentCancel = "";
+        if(str == null) str = "discard";
+        String status = "";
+        String approvalRefNo = "";
+        String[] response = str.split("&");
+        for (String s : response) {
+            String[] equalStr = s.split("=");
+            if (equalStr.length >= 2) {
+                if (equalStr[0].toLowerCase().equals("Status".toLowerCase())) {
+                    status = equalStr[1].toLowerCase();
+                } else if (equalStr[0].toLowerCase().equals("ApprovalRefNo".toLowerCase()) || equalStr[0].toLowerCase().equals("txnRef".toLowerCase())) {
+                    approvalRefNo = equalStr[1];
+                }
+            } else {
+                paymentCancel = "Payment cancelled by user.";
+            }
+        }
+
+        if (status.equals("success")) {
+            //Code to handle successful transaction here.
+            //  Toast.makeText(Payment.this, "Transaction successful.", Toast.LENGTH_SHORT).show();
+            Log.d("UPI", "responseStr: "+approvalRefNo);
+            // showPay_Status_AlertDialog(1);
+            //  onSuccessPay(orderId);
+            onSuccessPay(activity,orderId);
+        }
+        else if("Payment cancelled by user.".equals(paymentCancel)) {
+            //Toast.makeText(Payment.this, "Payment cancelled by user.", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity," Transaction Failed",Toast.LENGTH_LONG).show();
+            //startActivity(new Intent(getContext(), HomeActivity.class));
+            activity.finish();
+            activity. startActivity(activity.getIntent());
+            loadingDialog.dismiss();
+        }
+        else {
+            Toast.makeText(activity, "Transaction failed.Please try again", Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity," Transaction Failed",Toast.LENGTH_LONG).show();
+            //startActivity(new Intent(getContext(), HomeActivity.class));
+            activity.finish();
+            activity. startActivity(activity.getIntent());
+            loadingDialog.dismiss();
+        }
+
+    }
+
+    public void checkUser(Activity activity) {
+        loadingDialogg(activity);
+        StringRequest stringRequest = new StringRequest(Request.Method.POST, RestAPI.CHECK_USER,
+                response -> {
+                    // Toast.makeText(LoginActivity.this, "RESPONSE: " + response, Toast.LENGTH_SHORT).show();
+                    try {
+                        System.out.println(response);
+                        JSONObject object = new JSONObject(response).getJSONObject(GlobalVariables.AppSid);
+                            String success = object.getString("success");
+
+                            if (success.equals("11")) {
+                                // progressDialog.dismiss();
+                                //String user_id = object.getString("unique_id");
+                                loadingDialog.dismiss();
+                                //Toast.makeText(LoginActivity.this, Constant.userPhone, Toast.LENGTH_LONG).show();
+                                // LoadSettings();
+                                loadingDialog.dismiss();
+                               /* Intent intent = new Intent(activity, LoginPageActivity.class);
+                                intent.putExtra ("mobile",binding.phone.getText().toString() );
+                                startActivity(intent);*/
+                                Log.d(TAG, "checkUser: "+params.get("type"));
+
+                               if(Objects.equals(params.get("type"), "register")){
+                                   loadingDialog.dismiss();
+                                   Intent intent = new Intent(activity, RegisterActivity.class);
+                                   intent.putExtra ("mobile",params.get("mobile"));
+                                   intent.putExtra ("screentype","1");
+                                   activity.finish();
+                                   activity.startActivity(intent);
+
+                               }else{
+                                   loadingDialog.dismiss();
+                                   Intent intent = new Intent(activity, ForgotActivity.class);
+                                   intent.putExtra ("mobile",params.get("mobile"));
+                                   intent.putExtra ("screentype","2");
+                                   activity.startActivity(intent);
+                               }
+
+
+
+                            } else {
+                                // mobileNumber=binding.countryCodePicker.getSelectedCountryCode()+binding.phone.getText().toString();
+                                loadingDialog.dismiss();
+                                loadingDialog.dismiss();
+                              //  sendVerificationCodeToUser(mobileNumber);
+                                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(activity);
+                                alertDialogBuilder.setTitle(object.getString("title"));
+                                alertDialogBuilder.setMessage(object.getString("msg"));
+                                alertDialogBuilder.setIcon(R.mipmap.ic_launcher);
+                                alertDialogBuilder.setPositiveButton(activity.getResources().getString(R.string.ok_message),
+                                        new DialogInterface.OnClickListener() {
+                                            @Override
+                                            public void onClick(DialogInterface arg0, int arg1) {
+                                                loadingDialog.dismiss();
+                                                //Log.d("Response",msg);
+                                                activity.finishAffinity();
+
+                                            }
+                                        });
+
+                                AlertDialog alertDialog = alertDialogBuilder.create();
+                                alertDialog.show();
+                                Toast.makeText(activity, object.getString("msg"), Toast.LENGTH_LONG).show();
+                            }
+
+
+                        // progressDialog.dismiss();
+
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                        //Toast.makeText(LoginActivity.this, "Error: " + e.getMessage(),
+                        // Toast.LENGTH_SHORT).show();
+                    }
+
+                }, new com.android.volley.Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                loadingDialog.dismiss();
+                Log.e("Error", "" + error.getMessage());
+             //   Ex.AlertBox("Internet Connection Not Available");
+
+            }
+        }) {
+            @Override
+            protected Map<String, String> getParams() {
+                return params;
+            }
+        };
+
+        RequestQueue requestQueue = Volley.newRequestQueue(activity);
+        requestQueue.add(stringRequest);
+        Log.d(TAG, "login:stringrequest "+stringRequest+params);
+
+
+    }
+
+    public String Otp()
+    {
+        Random rnd = new Random();
+        return String.valueOf(100000 + rnd.nextInt(900000));
+    }
+
+
 }
